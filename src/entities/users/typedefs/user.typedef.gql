@@ -1,0 +1,10 @@
+type User {
+  id: Int
+  city: String
+  name: String
+}
+
+type Query {
+  user(id: Int!): User
+  users: [User]
+}
