@@ -1,10 +1,14 @@
 type User {
-  id: Int
-  city: String
-  name: String
+  id: Int!
+  city: String!
+  name: String!
 }
 
 type Query {
   user(id: Int!): User
   users: [User]
+}
+
+type Mutation {  
+  createUser(name: String!, city: String!): User
 }

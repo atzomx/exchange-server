@@ -2,10 +2,12 @@
   "name": "graphql-example",
   "version": "1.0.0",
   "main": "index.ts",
-  "author": "SaulMoreyra",
+  "author": "atzomx",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon ./index"
+    "dev": "nodemon  ./index",
+    "compile": "tsc --project tsconfig.json",
+    "start": "node ./dist"
   },
   "devDependencies": {
     "typescript": "^4.7.2"

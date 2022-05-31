@@ -3,20 +3,8 @@ import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import http from "http";
 
-import { resolvers } from "../entities";
+import { resolvers, typeDefs } from "../entities";
 
-const typeDefs = gql`
-  type User {
-    id: Int
-    city: String
-    name: String
-  }
-
-  type Query {
-    user(id: Int): User
-    users: [User]
-  }
-`;
 async function listen(port: number) {
   const app = express();
   const httpServer = http.createServer(app);
@@ -35,7 +23,7 @@ async function listen(port: number) {
   });
 }
 
-async function main() {
+async function start() {
   try {
     await listen(4000);
     console.log("Server is ready at http://localhost:4000/graphql");
@@ -44,4 +32,4 @@ async function main() {
   }
 }
 
-export const start = () => main();
+export default { start };
