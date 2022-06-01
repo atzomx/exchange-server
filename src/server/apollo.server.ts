@@ -1,17 +1,24 @@
-import { ApolloServerPluginDrainHttpServer, gql } from "apollo-server-core";
+import "reflect-metadata";
+import * as path from "path";
+import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import http from "http";
-
-import { resolvers, typeDefs } from "../entities";
+import { buildSchema } from "type-graphql";
+import { UserResolver } from "@entities/users";
 
 async function listen(port: number) {
   const app = express();
   const httpServer = http.createServer(app);
 
+  const schema = await buildSchema({
+    resolvers: [UserResolver],
+    emitSchemaFile: path.resolve(__dirname, "schema.gql"),
+    validate: false,
+  });
+
   const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    schema,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
   await server.start();
