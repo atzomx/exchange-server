@@ -1,6 +1,6 @@
 import { prop } from "@typegoose/typegoose";
-import { ObjectId } from "mongoose";
 import { Field, ID, ObjectType } from "type-graphql";
+import { ObjectId } from "mongoose";
 import { IUserGender } from "./user.enums";
 
 @ObjectType()

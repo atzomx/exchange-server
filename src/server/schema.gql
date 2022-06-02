@@ -15,9 +15,15 @@ enum Gender {
   other
 }
 
+type PaginateInfo {
+  page: Int!
+  pages: Int!
+  total: Int!
+}
+
 type Query {
   user(id: String!): User!
-  users: [User!]!
+  users(limit: Int = 10, page: Int = 1): UserPaginateResponse!
 }
 
 type User {
@@ -29,4 +35,9 @@ type User {
   lastName: String!
   normalizedFullName: String!
   secondLastName: String!
+}
+
+type UserPaginateResponse {
+  info: PaginateInfo!
+  results: [User!]!
 }
