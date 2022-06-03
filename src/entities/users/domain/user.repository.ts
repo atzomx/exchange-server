@@ -1,19 +1,19 @@
 import PaginateUtils from "@core/utils/paginate.utils";
-import { FilterQuery, ObjectId, SortOrder } from "mongoose";
+import { FilterQuery, ObjectId } from "mongoose";
 import User from "./user.entity";
-import UserModel from "./user.model";
+import UserModel from "../infrastructure/user.model";
 
 const DEFAULT_PAGINATION = 15;
 
 class UserRepository {
-  private instance;
+  private instance: typeof UserModel;
 
   constructor() {
     this.instance = UserModel;
   }
 
   create(user: User) {
-    this.instance.create(user);
+    return this.instance.create(user);
   }
 
   findById(id: string | ObjectId) {
@@ -40,7 +40,7 @@ class UserRepository {
     const skip = PaginateUtils.getSkip({ page, limit });
 
     const documents = this.instance.find(query).skip(skip).limit(limit);
-    const results = documents.clone();
+    const results = documents.clone().lean();
     const total = documents.clone().countDocuments();
 
     return {

@@ -25,14 +25,14 @@ export class PaginateInfo {
   public total!: number;
 }
 
-export function PaginateResponse<TItem>(TItemClass: ClassType<TItem>) {
+export function PaginateResponse<TModel>(TModelClass: ClassType<TModel>) {
   @ObjectType({ isAbstract: true })
   abstract class PaginatedResponseClass {
     @Field(() => PaginateInfo)
     public info!: PaginateInfo;
 
-    @Field(() => [TItemClass])
-    public results!: TItem[];
+    @Field(() => [TModelClass])
+    public results!: TModel[];
   }
   return PaginatedResponseClass;
 }

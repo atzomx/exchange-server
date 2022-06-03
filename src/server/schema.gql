@@ -15,6 +15,10 @@ enum Gender {
   other
 }
 
+type Mutation {
+  userCreate(data: UserInput!): User!
+}
+
 type PaginateInfo {
   page: Int!
   pages: Int!
@@ -22,8 +26,9 @@ type PaginateInfo {
 }
 
 type Query {
-  user(id: String!): User!
-  users(limit: Int = 10, page: Int = 1): UserPaginateResponse!
+  """User by id"""
+  userById(id: String!): User!
+  usersPaginate(limit: Int = 10, page: Int = 1): UserPaginateResponse!
 }
 
 type User {
@@ -35,6 +40,15 @@ type User {
   lastName: String!
   normalizedFullName: String!
   secondLastName: String!
+}
+
+input UserInput {
+  birthday: DateTime!
+  curp: String!
+  firstName: String!
+  gender: Gender!
+  lastName: String!
+  secondLastName: String
 }
 
 type UserPaginateResponse {

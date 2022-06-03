@@ -6,7 +6,7 @@ import { IUserGender } from "./user.enums";
 @ObjectType()
 class User {
   @Field(() => ID)
-  readonly _id!: ObjectId;
+  readonly _id?: ObjectId;
 
   @Field()
   @prop({ required: true })
@@ -18,7 +18,7 @@ class User {
 
   @Field()
   @prop({ required: true })
-  public secondLastName!: string;
+  public secondLastName?: string;
 
   @Field()
   @prop({ required: true })

@@ -1,5 +1,5 @@
 import "module-alias/register";
-import mongodb from "@core/database";
+import mongodb from "@database";
 import server from "@server";
 
 mongodb.start();

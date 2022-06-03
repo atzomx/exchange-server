@@ -1,11 +1,12 @@
 import "reflect-metadata";
-import * as path from "path";
+import { Log } from "@core/utils";
+import { UserResolver } from "@entities/users";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import http from "http";
+import * as path from "path";
 import { buildSchema } from "type-graphql";
-import { UserResolver } from "@entities/users";
 
 async function listen(port: number) {
   const app = express();
@@ -32,10 +33,11 @@ async function listen(port: number) {
 
 async function start() {
   try {
-    await listen(4000);
-    console.log("Server is ready at http://localhost:4000/graphql");
+    const PORT = Number(process.env.PORT ?? 4000);
+    await listen(PORT);
+    Log.i("Server is ready at http://localhost:4000/graphql");
   } catch (err) {
-    console.error("Error starting the node server", err);
+    Log.e("Error starting the node server", err);
   }
 }
 
