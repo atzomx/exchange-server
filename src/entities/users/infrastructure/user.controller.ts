@@ -1,8 +1,8 @@
 import { PaginateArgs } from "@core/responses";
-import { Sanitize } from "@core/utils";
 import User from "../domain/user.entity";
 import UserRepository from "../domain/user.repository";
-import UserInput from "./user.inputs";
+import { UserInputCreate, UserInputUpdate } from "./user.inputs";
+import userUtils from "./user.utils";
 
 class UserController {
   private repository: UserRepository;
@@ -33,18 +33,29 @@ class UserController {
     };
   }
 
-  async userCreate(user: UserInput): Promise<User> {
-    const { firstName, lastName, secondLastName = "" } = user;
-    const fullName = [firstName, lastName, secondLastName]
-      .map((name) => name.trim().trimEnd())
-      .join(" ");
-    const normalizedFullName = Sanitize.accents(fullName).toLowerCase();
-
-    const result = await this.repository.create({
-      ...user,
-      normalizedFullName,
+  async userCreate(user: UserInputCreate): Promise<User> {
+    const sanitized = userUtils.sanitize({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      secondLastName: user.secondLastName,
     });
+    const result = await this.repository.create({ ...user, ...sanitized });
     return result;
+  }
+
+  async userUpdate(id: string, user: UserInputUpdate): Promise<User> {
+    const currentUser = await this.repository.findById(id);
+    const sanitized = userUtils.sanitize({
+      firstName: user.firstName ?? currentUser.firstName,
+      lastName: user.lastName ?? currentUser.lastName,
+      secondLastName: user.secondLastName ?? currentUser.secondLastName,
+    });
+    const updatedUser = await this.repository.findByIdAndUpdate(id, {
+      ...user,
+      ...sanitized,
+    });
+
+    return updatedUser;
   }
 }
 

@@ -3,7 +3,7 @@ import { Field, InputType } from "type-graphql";
 import { IUserGender } from "../domain/user.enums";
 
 @InputType()
-export class UserInput {
+export class UserInputCreate {
   @Field()
   @Length(1, 30)
   public firstName!: string;
@@ -27,4 +27,29 @@ export class UserInput {
   public birthday!: Date;
 }
 
-export default UserInput;
+@InputType()
+export class UserInputUpdate {
+  @Field({ nullable: true })
+  @Length(1, 30)
+  public firstName?: string;
+
+  @Field({ nullable: true })
+  @Length(1, 30)
+  public lastName?: string;
+
+  @Field({ nullable: true })
+  @Length(1, 30)
+  public secondLastName?: string;
+
+  @Field({ nullable: true })
+  @Length(18)
+  public curp?: string;
+
+  @Field(() => IUserGender, { nullable: true })
+  public gender?: IUserGender;
+
+  @Field({ nullable: true })
+  public birthday?: Date;
+}
+
+export default { UserInputCreate, UserInputUpdate };

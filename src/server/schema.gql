@@ -16,7 +16,8 @@ enum Gender {
 }
 
 type Mutation {
-  userCreate(data: UserInput!): User!
+  userCreate(data: UserInputCreate!): User!
+  userUpdate(data: UserInputUpdate!, id: String!): User!
 }
 
 type PaginateInfo {
@@ -42,12 +43,21 @@ type User {
   secondLastName: String!
 }
 
-input UserInput {
+input UserInputCreate {
   birthday: DateTime!
   curp: String!
   firstName: String!
   gender: Gender!
   lastName: String!
+  secondLastName: String
+}
+
+input UserInputUpdate {
+  birthday: DateTime
+  curp: String
+  firstName: String
+  gender: Gender
+  lastName: String
   secondLastName: String
 }
 

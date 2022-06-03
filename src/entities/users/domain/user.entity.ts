@@ -1,8 +1,7 @@
 import { prop } from "@typegoose/typegoose";
-import { Field, ID, ObjectType } from "type-graphql";
 import { ObjectId } from "mongoose";
+import { Field, ID, ObjectType } from "type-graphql";
 import { IUserGender } from "./user.enums";
-
 @ObjectType()
 class User {
   @Field(() => ID)
@@ -21,8 +20,8 @@ class User {
   public secondLastName?: string;
 
   @Field()
-  @prop({ required: true })
-  public normalizedFullName!: string;
+  @prop({ required: false })
+  public normalizedFullName?: string;
 
   @Field()
   @prop({ required: true })

@@ -1,9 +1,11 @@
 import { PaginateArgs } from "@core/responses";
-import { Context } from "apollo-server-core";
-import { Arg, Args, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import User from "../domain/user.entity";
 import UserController from "../infrastructure/user.controller";
-import UserInput from "../infrastructure/user.inputs";
+import {
+  UserInputCreate,
+  UserInputUpdate,
+} from "../infrastructure/user.inputs";
 import { UserPaginateResponse } from "../infrastructure/user.response";
 
 @Resolver(User)
@@ -27,8 +29,14 @@ class UserResolver {
   }
 
   @Mutation(() => User)
-  async userCreate(@Arg("data") user: UserInput, @Ctx() ctx: Context) {
+  async userCreate(@Arg("data") user: UserInputCreate) {
     const result = await this.controller.userCreate(user);
+    return result;
+  }
+
+  @Mutation(() => User)
+  async userUpdate(@Arg("id") id: string, @Arg("data") user: UserInputUpdate) {
+    const result = await this.controller.userUpdate(id, user);
     return result;
   }
 }
