@@ -1,8 +1,8 @@
-import { PaginateArgs } from "@core/responses";
-import User from "../domain/user.entity";
-import UserRepository from "../domain/user.repository";
-import { UserInputCreate, UserInputUpdate } from "./user.inputs";
-import userUtils from "./user.utils";
+import { PaginateArgs } from '@core/responses';
+import User from '../domain/user.entity';
+import UserRepository from '../domain/user.repository';
+import { UserInputCreate, UserInputUpdate } from './user.inputs';
+import userUtils from './user.utils';
 
 class UserController {
   private repository: UserRepository;

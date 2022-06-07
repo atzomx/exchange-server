@@ -1,6 +1,6 @@
-import { Length } from "class-validator";
-import { Field, InputType } from "type-graphql";
-import { IUserGender } from "../domain/user.enums";
+import { Length } from 'class-validator';
+import { Field, InputType } from 'type-graphql';
+import { IUserGender } from '../domain/user.enums';
 
 @InputType()
 export class UserInputCreate {

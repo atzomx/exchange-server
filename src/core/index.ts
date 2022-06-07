@@ -1,1 +1,1 @@
-export { default as mongodb } from "../database";
+export { default as mongodb } from '../database';

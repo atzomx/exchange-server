@@ -1,6 +1,6 @@
-import chalk from "chalk";
+import chalk from 'chalk';
 
-const MESSAGE = "[app:logger]";
+const MESSAGE = '[app:logger]';
 
 const success = (message?: any, ...optionalParams: any[]) => {
   console.log(chalk.green(MESSAGE), chalk.green(message), ...optionalParams);

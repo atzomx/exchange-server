@@ -1,7 +1,7 @@
-import PaginateUtils from "@core/utils/paginate.utils";
-import { FilterQuery, ObjectId } from "mongoose";
-import User from "./user.entity";
-import UserModel from "../infrastructure/user.model";
+import PaginateUtils from '@core/utils/paginate.utils';
+import { FilterQuery, ObjectId } from 'mongoose';
+import User from './user.entity';
+import UserModel from '../infrastructure/user.model';
 
 const DEFAULT_PAGINATION = 15;
 

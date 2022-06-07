@@ -1,12 +1,12 @@
-import { PaginateArgs } from "@core/responses";
-import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
-import User from "../domain/user.entity";
-import UserController from "../infrastructure/user.controller";
+import { PaginateArgs } from '@core/responses';
+import { Arg, Args, Mutation, Query, Resolver } from 'type-graphql';
+import User from '../domain/user.entity';
+import UserController from '../infrastructure/user.controller';
 import {
   UserInputCreate,
   UserInputUpdate,
-} from "../infrastructure/user.inputs";
-import { UserPaginateResponse } from "../infrastructure/user.response";
+} from '../infrastructure/user.inputs';
+import { UserPaginateResponse } from '../infrastructure/user.response';
 
 @Resolver(User)
 class UserResolver {
@@ -16,8 +16,8 @@ class UserResolver {
     this.controller = new UserController();
   }
 
-  @Query(() => User, { description: "User by id" })
-  async userById(@Arg("id") id: string): Promise<User> {
+  @Query(() => User, { description: 'User by id' })
+  async userById(@Arg('id') id: string): Promise<User> {
     const user = await this.controller.userById(id);
     return user;
   }
@@ -29,13 +29,13 @@ class UserResolver {
   }
 
   @Mutation(() => User)
-  async userCreate(@Arg("data") user: UserInputCreate) {
+  async userCreate(@Arg('data') user: UserInputCreate) {
     const result = await this.controller.userCreate(user);
     return result;
   }
 
   @Mutation(() => User)
-  async userUpdate(@Arg("id") id: string, @Arg("data") user: UserInputUpdate) {
+  async userUpdate(@Arg('id') id: string, @Arg('data') user: UserInputUpdate) {
     const result = await this.controller.userUpdate(id, user);
     return result;
   }

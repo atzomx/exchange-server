@@ -1,13 +1,13 @@
-import { Max, Min } from "class-validator";
-import { ArgsType, ClassType, Field, Int, ObjectType } from "type-graphql";
+import { Max, Min } from 'class-validator';
+import { ArgsType, ClassType, Field, Int, ObjectType } from 'type-graphql';
 
 @ArgsType()
 export class PaginateArgs {
-  @Field((type) => Int)
+  @Field(type => Int)
   @Min(0)
   page: number = 1;
 
-  @Field((type) => Int)
+  @Field(type => Int)
   @Min(5)
   @Max(50)
   limit: number = 10;

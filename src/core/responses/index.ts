@@ -1,1 +1,1 @@
-export * from "./paginate.response";
+export * from './paginate.response';

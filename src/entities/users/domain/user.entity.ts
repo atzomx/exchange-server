@@ -1,7 +1,7 @@
-import { prop } from "@typegoose/typegoose";
-import { ObjectId } from "mongoose";
-import { Field, ID, ObjectType } from "type-graphql";
-import { IUserGender } from "./user.enums";
+import { prop } from '@typegoose/typegoose';
+import { ObjectId } from 'mongoose';
+import { Field, ID, ObjectType } from 'type-graphql';
+import { IUserGender } from './user.enums';
 @ObjectType()
 class User {
   @Field(() => ID)
