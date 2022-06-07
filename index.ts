@@ -1,4 +1,3 @@
-import 'module-alias/register';
 import mongodb from '@database';
 import server from '@server';
 

@@ -36,18 +36,18 @@
       "es2015.symbol.wellknown",
       "esnext.asynciterable"
     ],
-    "baseUrl": "./src" /* Specify the base directory to resolve non-relative module names. */,
+    "baseUrl": "." /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
-      "@core/*": ["core/*"],
-      "@core": ["core"],
-      "@entities/*": ["entities/*"],
-      "@entities": ["entities"],
-      "@server/*": ["server/*"],
-      "@server": ["server"],
-      "@users/*": ["entities/users/*"],
-      "@users": ["entities/users"],
-      "@database/*": ["database/*"],
-      "@database": ["database"]
+      "@core/*": ["./src/core/*"],
+      "@core": ["./src/core"],
+      "@entities/*": ["./src/entities/*"],
+      "@entities": ["./src/entities"],
+      "@server/*": ["./src/server/*"],
+      "@server": ["./src/server"],
+      "@users/*": ["./src/entities/users/*"],
+      "@users": ["./src/entities/users"],
+      "@database/*": ["./src/database/*"],
+      "@database": ["./src/database"]
     }
   }
 }
