@@ -1,4 +1,4 @@
-import { PaginateResponse } from '@core/responses';
+import { PaginateResponse } from '@core/infrastructure/responses';
 import { ObjectType } from 'type-graphql';
 import User from '../domain/user.entity';
 

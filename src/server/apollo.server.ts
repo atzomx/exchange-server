@@ -1,11 +1,11 @@
-import 'reflect-metadata';
-import { Log } from '@core/utils';
+import { Log } from '@core/infrastructure/utils';
 import Entities from '@entities';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import http from 'http';
 import * as path from 'path';
+import 'reflect-metadata';
 import { buildSchema } from 'type-graphql';
 
 async function listen(port: number) {
@@ -15,7 +15,7 @@ async function listen(port: number) {
   const schema = await buildSchema({
     resolvers: Entities.resolvers,
     emitSchemaFile: path.resolve(__dirname, 'schema.gql'),
-    validate: false,
+    validate: true,
   });
 
   const server = new ApolloServer({

@@ -32,24 +32,41 @@ type Query {
   usersPaginate(limit: Int = 10, page: Int = 1): UserPaginateResponse!
 }
 
+"""User status"""
+enum Status {
+  active
+  banned
+  pending
+}
+
 type User {
-  _id: ID!
   birthday: DateTime!
   curp: String!
+  email: String!
   firstName: String!
   gender: Gender!
+  id: ID!
+  image: String!
   lastName: String!
   normalizedFullName: String!
+  phoneNumber: String!
   secondLastName: String!
+  status: Status!
+  userName: String!
 }
 
 input UserInputCreate {
   birthday: DateTime!
   curp: String!
+  email: String!
   firstName: String!
   gender: Gender!
+  image: String!
   lastName: String!
+  password: String!
+  phoneNumber: String!
   secondLastName: String
+  userName: String!
 }
 
 input UserInputUpdate {
@@ -58,6 +75,7 @@ input UserInputUpdate {
   firstName: String
   gender: Gender
   lastName: String
+  phoneNumber: String!
   secondLastName: String
 }
 

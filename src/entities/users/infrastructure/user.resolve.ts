@@ -1,12 +1,9 @@
-import { PaginateArgs } from '@core/responses';
+import { PaginateArgs } from '@core/infrastructure/responses';
 import { Arg, Args, Mutation, Query, Resolver } from 'type-graphql';
+import UserController from '../application/user.controller';
 import User from '../domain/user.entity';
-import UserController from '../infrastructure/user.controller';
-import {
-  UserInputCreate,
-  UserInputUpdate,
-} from '../infrastructure/user.inputs';
-import { UserPaginateResponse } from '../infrastructure/user.response';
+import { UserInputCreate, UserInputUpdate } from './user.inputs';
+import { UserPaginateResponse } from './user.response';
 
 @Resolver(User)
 class UserResolver {

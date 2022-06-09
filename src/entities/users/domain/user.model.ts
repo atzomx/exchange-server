@@ -1,5 +1,5 @@
 import { getModelForClass } from '@typegoose/typegoose';
-import User from '../domain/user.entity';
+import User from './user.entity';
 
 const UserModel = getModelForClass(User, {
   schemaOptions: { timestamps: true },

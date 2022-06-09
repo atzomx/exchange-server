@@ -36,3 +36,5 @@ export function PaginateResponse<TModel>(TModelClass: ClassType<TModel>) {
   }
   return PaginatedResponseClass;
 }
+
+export default PaginateResponse;

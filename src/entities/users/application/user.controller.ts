@@ -1,7 +1,10 @@
-import { PaginateArgs } from '@core/responses';
+import { PaginateArgs } from '@core/infrastructure/responses';
 import User from '../domain/user.entity';
 import UserRepository from '../domain/user.repository';
-import { UserInputCreate, UserInputUpdate } from './user.inputs';
+import {
+  UserInputCreate,
+  UserInputUpdate,
+} from '../infrastructure/user.inputs';
 import userUtils from './user.utils';
 
 class UserController {
@@ -24,7 +27,7 @@ class UserController {
 
     const pages = Math.ceil(total / limit);
     return {
-      results: results as User[],
+      results: results,
       info: {
         total,
         page,
@@ -38,8 +41,10 @@ class UserController {
       firstName: user.firstName,
       lastName: user.lastName,
       secondLastName: user.secondLastName,
+      curp: user.curp,
     });
-    const result = await this.repository.create({ ...user, ...sanitized });
+    const newUser = { ...user, ...sanitized };
+    const result = await this.repository.create({ ...newUser });
     return result;
   }
 
@@ -49,6 +54,7 @@ class UserController {
       firstName: user.firstName ?? currentUser.firstName,
       lastName: user.lastName ?? currentUser.lastName,
       secondLastName: user.secondLastName ?? currentUser.secondLastName,
+      curp: user.curp ?? currentUser.curp,
     });
     const updatedUser = await this.repository.findByIdAndUpdate(id, {
       ...user,

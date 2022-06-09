@@ -6,7 +6,18 @@ export enum IUserGender {
   'other' = 'other',
 }
 
+export enum IUserStatus {
+  'active' = 'active',
+  'banned' = 'banned',
+  'pending' = 'pending',
+}
+
 registerEnumType(IUserGender, {
   name: 'Gender',
   description: 'People gender',
+});
+
+registerEnumType(IUserStatus, {
+  name: 'Status',
+  description: 'User status',
 });

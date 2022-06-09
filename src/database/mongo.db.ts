@@ -1,4 +1,4 @@
-import { Log } from '@core/utils';
+import { Log } from '@core/infrastructure/utils';
 import { config } from 'dotenv';
 import mongoose from 'mongoose';
 
