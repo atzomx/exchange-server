@@ -75,7 +75,7 @@ input UserInputUpdate {
   firstName: String
   gender: Gender
   lastName: String
-  phoneNumber: String!
+  phoneNumber: String
   secondLastName: String
 }
 

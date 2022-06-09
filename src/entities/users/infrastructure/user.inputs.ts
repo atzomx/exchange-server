@@ -1,27 +1,29 @@
-import { Length, MaxLength, MinLength } from 'class-validator';
+import { Length, MaxLength, MinLength, IsOptional } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
 import { IUserGender, IUserStatus } from '../domain/user.enums';
 
 @InputType()
 export class UserInputCreate {
   @Field()
-  @Length(1, 30)
+  @MinLength(1)
+  @MaxLength(30)
   public firstName!: string;
 
   @Field()
-  @Length(1, 30)
+  @MinLength(1)
+  @MaxLength(30)
   public lastName!: string;
 
   @Field({ nullable: true })
-  @Length(1, 30)
+  @MinLength(1)
+  @MaxLength(30)
   public secondLastName?: string;
 
   @Field()
   public image?: string;
 
   @Field()
-  @MaxLength(18, { always: true, message: 'only 18 characters for curp' })
-  @MinLength(18, { always: true, message: 'only 18 characters for curp' })
+  @Length(18)
   public curp!: string;
 
   @Field(() => IUserGender)
@@ -31,15 +33,21 @@ export class UserInputCreate {
   public birthday!: Date;
 
   @Field()
+  @MinLength(7)
+  @MaxLength(15)
   public phoneNumber!: string;
 
   @Field()
   public email!: string;
 
   @Field()
+  @MinLength(8)
+  @MaxLength(16)
   public password!: string;
 
   @Field()
+  @MinLength(8)
+  @MaxLength(16)
   public userName!: string;
 
   public status: IUserStatus = IUserStatus.pending;
@@ -48,28 +56,38 @@ export class UserInputCreate {
 @InputType()
 export class UserInputUpdate {
   @Field({ nullable: true })
-  @Length(1, 30)
+  @IsOptional()
+  @MaxLength(30)
   public firstName?: string;
 
   @Field({ nullable: true })
-  @Length(1, 30)
+  @IsOptional()
+  @MinLength(1)
+  @MaxLength(30)
   public lastName?: string;
 
   @Field({ nullable: true })
-  @Length(1, 30)
+  @IsOptional()
+  @MinLength(1)
+  @MaxLength(30)
   public secondLastName?: string;
 
   @Field({ nullable: true })
-  @Length(18)
+  @IsOptional()
+  @Length(18, 18)
   public curp?: string;
 
   @Field(() => IUserGender, { nullable: true })
+  @IsOptional()
   public gender?: IUserGender;
 
   @Field({ nullable: true })
+  @IsOptional()
   public birthday?: Date;
 
-  @Field()
+  @Field({ nullable: true })
+  @IsOptional()
+  @MaxLength(15)
   public phoneNumber?: string;
 }
 

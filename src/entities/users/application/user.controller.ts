@@ -56,10 +56,13 @@ class UserController {
       secondLastName: user.secondLastName ?? currentUser.secondLastName,
       curp: user.curp ?? currentUser.curp,
     });
-    const updatedUser = await this.repository.findByIdAndUpdate(id, {
-      ...user,
-      ...sanitized,
-    });
+
+    const dataToUpdate = { ...user, ...sanitized };
+    console.log(dataToUpdate);
+    const updatedUser = await this.repository.findByIdAndUpdate(
+      id,
+      dataToUpdate
+    );
 
     return updatedUser;
   }
