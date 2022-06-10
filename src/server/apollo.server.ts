@@ -19,6 +19,7 @@ async function listen(port: number) {
   });
 
   const server = new ApolloServer({
+    debug: false,
     schema,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
@@ -42,3 +43,19 @@ async function start() {
 }
 
 export default { start };
+
+// formatError: (error: GraphQLError) => {
+//   // console.log(error.originalError instanceof MongoServerError);
+//   console.log(
+//     error.originalError.name,
+//     JSON.parse(JSON.stringify(error.originalError)).code
+//   );
+//   if (error.originalError.name === 'GraphQLError') return error;
+//   if (error.originalError.name === 'ApolloError') return error;
+//   if (error.originalError.name === 'UserInputError') return error;
+//   return new ApolloError(
+//     'Duplicated Key',
+//     'DATABASE_ERROR',
+//     JSON.parse(JSON.stringify(error.originalError))
+//   );
+// },

@@ -1,3 +1,4 @@
+import { ValidateArgs } from '@core/infrastructure/helpers';
 import { PaginateArgs } from '@core/infrastructure/responses';
 import { Arg, Args, Mutation, Query, Resolver } from 'type-graphql';
 import UserController from '../application/user.controller';
@@ -26,12 +27,14 @@ class UserResolver {
   }
 
   @Mutation(() => User)
+  @ValidateArgs(UserInputCreate, 'data')
   async userCreate(@Arg('data') user: UserInputCreate) {
     const result = await this.controller.userCreate(user);
     return result;
   }
 
   @Mutation(() => User)
+  @ValidateArgs(UserInputUpdate, 'data')
   async userUpdate(@Arg('id') id: string, @Arg('data') user: UserInputUpdate) {
     const result = await this.controller.userUpdate(id, user);
     return result;
