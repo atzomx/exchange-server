@@ -1,6 +1,6 @@
-import { UserInputError } from 'apollo-server-core';
-import { validate } from 'class-validator';
-import { ClassType, createMethodDecorator } from 'type-graphql';
+import { UserInputError } from "apollo-server-core";
+import { validate } from "class-validator";
+import { ClassType, createMethodDecorator } from "type-graphql";
 
 function ValidateArgs<T extends object>(Type: ClassType<T>, key?: string) {
   return createMethodDecorator(async ({ args }, next) => {
@@ -10,12 +10,12 @@ function ValidateArgs<T extends object>(Type: ClassType<T>, key?: string) {
     });
     if (validationErrors.length === 0) return next();
 
-    const errors = validationErrors.map(error => ({
+    const errors = validationErrors.map((error) => ({
       constrains: error.constraints,
       property: error.property,
     }));
 
-    throw new UserInputError('Invalid Input', {
+    throw new UserInputError("Invalid Input", {
       errors,
     });
   });

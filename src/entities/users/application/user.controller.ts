@@ -1,11 +1,13 @@
-import { PaginateArgs } from '@core/infrastructure/responses';
-import User from '../domain/user.entity';
-import UserRepository from '../domain/user.repository';
+import { PaginateArgs } from "@core/infrastructure/responses";
+import User from "../domain/user.entity";
+import UserRepository from "../domain/user.repository";
+
 import {
   UserInputCreate,
   UserInputUpdate,
-} from '../infrastructure/user.inputs';
-import userUtils from './user.utils';
+} from "../infrastructure/user.inputs";
+
+import userUtils from "./user.utils";
 
 class UserController {
   private repository: UserRepository;
@@ -20,6 +22,7 @@ class UserController {
 
   async usersPaginate({ page, limit }: PaginateArgs) {
     const paginator = this.repository.paginate({}, { limit, page });
+
     const [results, total] = await Promise.all([
       paginator.getResults(),
       paginator.getTotal(),
@@ -43,6 +46,7 @@ class UserController {
       secondLastName: user.secondLastName,
       curp: user.curp,
     });
+
     const newUser = { ...user, ...sanitized };
     const result = await this.repository.create({ ...newUser });
     return result;
@@ -56,14 +60,11 @@ class UserController {
       secondLastName: user.secondLastName ?? currentUser.secondLastName,
       curp: user.curp ?? currentUser.curp,
     });
-
     const dataToUpdate = { ...user, ...sanitized };
-    console.log(dataToUpdate);
     const updatedUser = await this.repository.findByIdAndUpdate(
       id,
-      dataToUpdate
+      dataToUpdate,
     );
-
     return updatedUser;
   }
 }

@@ -1,6 +1,6 @@
-import { Repository } from '@core/domain';
-import User from './user.entity';
-import UserModel from './user.model';
+import { Repository } from "@core/domain";
+import User from "./user.entity";
+import UserModel from "./user.model";
 
 class UserRepository extends Repository<User> {
   constructor() {

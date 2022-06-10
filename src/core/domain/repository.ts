@@ -1,4 +1,4 @@
-import { Paginate } from '@core/infrastructure/utils';
+import { Paginate } from "@core/infrastructure/utils";
 import {
   AnyKeys,
   AnyObject,
@@ -6,7 +6,7 @@ import {
   HydratedDocument,
   Model,
   ObjectId,
-} from 'mongoose';
+} from "mongoose";
 
 const DEFAULT_PAGINATION = 15;
 
@@ -40,7 +40,7 @@ class Repository<T> {
     }: {
       page?: number;
       limit?: number;
-    }
+    },
   ) {
     const skip = Paginate.getSkip({ page, limit });
 

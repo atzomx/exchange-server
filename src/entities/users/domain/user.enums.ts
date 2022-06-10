@@ -1,23 +1,23 @@
-import { registerEnumType } from 'type-graphql';
+import { registerEnumType } from "type-graphql";
 
 export enum IUserGender {
-  'male' = 'male',
-  'female' = 'female',
-  'other' = 'other',
+  "male" = "male",
+  "female" = "female",
+  "other" = "other",
 }
 
 export enum IUserStatus {
-  'active' = 'active',
-  'banned' = 'banned',
-  'pending' = 'pending',
+  "active" = "active",
+  "banned" = "banned",
+  "pending" = "pending",
 }
 
 registerEnumType(IUserGender, {
-  name: 'Gender',
-  description: 'People gender',
+  name: "Gender",
+  description: "People gender",
 });
 
 registerEnumType(IUserStatus, {
-  name: 'Status',
-  description: 'User status',
+  name: "Status",
+  description: "User status",
 });

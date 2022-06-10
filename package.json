@@ -12,6 +12,8 @@
     "prod:start": "node ./dist/index.js"
   },
   "devDependencies": {
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
     "rimraf": "3.0.2",
     "ts-node": "10.8.0",
     "tsc-alias": "1.6.9",

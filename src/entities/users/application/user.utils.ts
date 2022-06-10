@@ -1,4 +1,4 @@
-import { Sanitize } from '@core/infrastructure/utils';
+import { Sanitize } from "@core/infrastructure/utils";
 
 type Sanitize = {
   firstName: string;
@@ -16,7 +16,7 @@ const sanitize = ({
 }: Sanitize) => {
   const fullName = [_fn, _ln, _sln].map(clean);
   const [firstName, lastName, secondLastName] = fullName;
-  const normalizedFullName = Sanitize.accents(fullName.join(' '));
+  const normalizedFullName = Sanitize.accents(fullName.join(" "));
   return {
     normalizedFullName,
     firstName,
