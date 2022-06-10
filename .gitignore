@@ -2,3 +2,4 @@ node_modules
 dist
 mongo
 src/server/schema.gql
+.env
