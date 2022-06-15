@@ -1,12 +1,14 @@
 import { PaginateArgs } from "@core/infrastructure/responses";
 import User from "../domain/user.entity";
+import {
+  UserAlreadyExistsError,
+  UserNotFoundError,
+} from "../domain/user.errors";
 import UserRepository from "../domain/user.repository";
-
 import {
   UserInputCreate,
   UserInputUpdate,
 } from "../infrastructure/user.inputs";
-
 import userUtils from "./user.utils";
 
 class UserController {
@@ -40,6 +42,16 @@ class UserController {
   }
 
   async userCreate(user: UserInputCreate): Promise<User> {
+    const query = {
+      $or: [
+        { email: user.email },
+        { curp: user.curp },
+        { userName: user.userName },
+      ],
+    };
+    const existingUser = await this.repository.findOne(query);
+    if (existingUser) throw new UserAlreadyExistsError(existingUser, user);
+
     const sanitized = userUtils.sanitize({
       firstName: user.firstName,
       lastName: user.lastName,
@@ -54,6 +66,8 @@ class UserController {
 
   async userUpdate(id: string, user: UserInputUpdate): Promise<User> {
     const currentUser = await this.repository.findById(id);
+    if (!currentUser) throw new UserNotFoundError();
+
     const sanitized = userUtils.sanitize({
       firstName: user.firstName ?? currentUser.firstName,
       lastName: user.lastName ?? currentUser.lastName,

@@ -5,7 +5,7 @@ import { IUserGender, IUserStatus } from "./user.enums";
 @ObjectType()
 class User {
   @Field(() => ID)
-  readonly id?: string | ObjectId;
+  readonly id?: ObjectId;
 
   @Field()
   @prop({ required: true })

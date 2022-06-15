@@ -1,4 +1,7 @@
-import { ValidateArgs } from "@core/infrastructure/helpers";
+import {
+  ValidateArgs,
+  ValidateIdentifier,
+} from "@core/infrastructure/decorators";
 import { PaginateArgs } from "@core/infrastructure/responses";
 import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import UserController from "../application/user.controller";
@@ -14,13 +17,15 @@ class UserResolver {
     this.controller = new UserController();
   }
 
-  @Query(() => User, { description: "User by id" })
+  @Query(() => User, { description: "Returns one user by id" })
   async userById(@Arg("id") id: string): Promise<User> {
     const user = await this.controller.userById(id);
     return user;
   }
 
-  @Query(() => UserPaginateResponse)
+  @Query(() => UserPaginateResponse, {
+    description: "Returns an array of users",
+  })
   async usersPaginate(@Args() { page, limit }: PaginateArgs) {
     const results = await this.controller.usersPaginate({ page, limit });
     return results;
@@ -34,9 +39,10 @@ class UserResolver {
   }
 
   @Mutation(() => User)
+  @ValidateIdentifier(UserInputUpdate, "id")
   @ValidateArgs(UserInputUpdate, "data")
   async userUpdate(@Arg("id") id: string, @Arg("data") user: UserInputUpdate) {
-    const result = await this.controller.userUpdate(id, user);
+    const result = await this.controller.userUpdate(id.toString(), user);
     return result;
   }
 }

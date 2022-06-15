@@ -17,8 +17,16 @@ class Repository<T> {
     this.instance = instance;
   }
 
-  create(entity: T): Promise<HydratedDocument<T, {}, {}>> {
+  create(entity: T): Promise<HydratedDocument<T, T, T>> {
     return this.instance.create<T>(entity);
+  }
+
+  find(filter: FilterQuery<T>) {
+    return this.instance.find<T>(filter);
+  }
+
+  findOne(filter?: FilterQuery<T>) {
+    return this.instance.findOne<T>(filter);
   }
 
   findById(id: string | ObjectId) {
