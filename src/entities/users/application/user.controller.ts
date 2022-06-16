@@ -1,4 +1,5 @@
 import { PaginateArgs } from "@core/infrastructure/responses";
+import { Password } from "@core/infrastructure/utils";
 import User from "../domain/user.entity";
 import {
   UserAlreadyExistsError,
@@ -59,8 +60,9 @@ class UserController {
       curp: user.curp,
     });
 
+    const password = Password.encrypt(user.password);
     const newUser = { ...user, ...sanitized };
-    const result = await this.repository.create({ ...newUser });
+    const result = await this.repository.create({ ...newUser, password });
     return result;
   }
 
