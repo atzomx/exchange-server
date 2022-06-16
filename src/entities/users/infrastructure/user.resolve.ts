@@ -3,7 +3,15 @@ import {
   ValidateIdentifier,
 } from "@core/infrastructure/decorators";
 import { PaginateArgs } from "@core/infrastructure/responses";
-import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
+import { AuthMiddleware } from "@entities/auth";
+import {
+  Arg,
+  Args,
+  Mutation,
+  Query,
+  Resolver,
+  UseMiddleware,
+} from "type-graphql";
 import UserController from "../application/user.controller";
 import User from "../domain/user.entity";
 import { UserInputCreate, UserInputUpdate } from "./user.inputs";
@@ -39,6 +47,7 @@ class UserResolver {
   }
 
   @Mutation(() => User)
+  @UseMiddleware(AuthMiddleware.IsAuth)
   @ValidateIdentifier(UserInputUpdate, "id")
   @ValidateArgs(UserInputUpdate, "data")
   async userUpdate(@Arg("id") id: string, @Arg("data") user: UserInputUpdate) {
