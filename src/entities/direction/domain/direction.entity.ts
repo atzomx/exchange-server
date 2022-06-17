@@ -29,15 +29,15 @@ class Direction {
 
   @Field()
   @prop({ required: true })
-  public outdoorNumber!: string;
+  public outdoorNumber!: number;
 
   @Field()
   @prop({ required: true })
-  public zipCode!: Date;
+  public zipCode!: number;
 
   @Field()
-  @prop({ required: true })
-  public extraIndications!: string;
+  @prop({ required: false })
+  public extraIndications?: string;
 
   @Field()
   @prop({ required: false, index: 1 })

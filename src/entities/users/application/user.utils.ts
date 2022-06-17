@@ -6,7 +6,6 @@ type Sanitize = {
   secondLastName: string;
   curp: string;
 };
-const clean = (name: string) => name.trim().trimEnd().toLowerCase();
 
 const sanitize = ({
   firstName: _fn,
@@ -14,7 +13,7 @@ const sanitize = ({
   secondLastName: _sln,
   curp,
 }: Sanitize) => {
-  const fullName = [_fn, _ln, _sln].map(clean);
+  const fullName = [_fn, _ln, _sln].map(Sanitize.clean);
   const [firstName, lastName, secondLastName] = fullName;
   const normalizedFullName = Sanitize.accents(fullName.join(" "));
   return {
@@ -22,7 +21,7 @@ const sanitize = ({
     firstName,
     lastName,
     secondLastName,
-    curp: clean(curp),
+    curp: Sanitize.clean(curp),
   };
 };
 
