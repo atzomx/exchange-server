@@ -23,22 +23,20 @@ class UserResolver {
     return user;
   }
 
-  @Query(() => UserPaginateResponse, {
-    description: "Returns an array of users",
-  })
+  @Query(() => UserPaginateResponse, {description: "Returns an array of users."})
   async usersPaginate(@Args() { page, limit }: PaginateArgs) {
     const results = await this.controller.usersPaginate({ page, limit });
     return results;
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, {description: "Register a new user.",})
   @ValidateArgs(UserInputCreate, "data")
   async userCreate(@Arg("data") user: UserInputCreate) {
     const result = await this.controller.userCreate(user);
     return result;
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, {description: "Update an existing user by id.",})
   @ValidateIdentifier(UserInputUpdate, "id")
   @ValidateArgs(UserInputUpdate, "data")
   async userUpdate(@Arg("id") id: string, @Arg("data") user: UserInputUpdate) {
