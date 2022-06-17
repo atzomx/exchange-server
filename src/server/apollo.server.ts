@@ -22,6 +22,7 @@ async function listen(port: number) {
     debug: false,
     schema,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    context: ({ req, res }) => ({ req, res }),
   });
   await server.start();
 

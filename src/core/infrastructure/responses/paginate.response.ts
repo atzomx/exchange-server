@@ -5,12 +5,12 @@ import { ArgsType, ClassType, Field, Int, ObjectType } from "type-graphql";
 export class PaginateArgs {
   @Field(() => Int)
   @Min(0)
-  page = 1;
+  public page = 1;
 
   @Field(() => Int)
   @Min(5)
   @Max(50)
-  limit = 10;
+  public limit = 10;
 }
 
 @ObjectType()
