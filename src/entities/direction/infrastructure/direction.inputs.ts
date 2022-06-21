@@ -1,8 +1,12 @@
 import { Length, MaxLength, MinLength, IsOptional } from "class-validator";
 import { Field, InputType } from "type-graphql";
+import { ObjectId } from "mongoose";
 
 @InputType()
 export class DirectionInputCreate {
+  @Field(() => String)
+  public owner!: ObjectId;
+
   @Field()
   @MinLength(1)
   @MaxLength(30)
@@ -29,13 +33,11 @@ export class DirectionInputCreate {
   public street!: string;
 
   @Field()
-  @MinLength(1)
-  @MaxLength(10)
   public outdoorNumber!: number;
 
   @Field()
   @Length(5)
-  public zipCode!: number;
+  public zipCode!: string;
 
   @Field({ nullable: true })
   @MinLength(1)
@@ -76,14 +78,12 @@ export class DirectionInputUpdate {
 
   @Field({ nullable: true })
   @IsOptional()
-  @MinLength(1)
-  @MaxLength(10)
   public outdoorNumber?: number;
 
   @Field({ nullable: true })
   @IsOptional()
   @Length(5)
-  public zipCode?: number;
+  public zipCode?: string;
 
   @Field({ nullable: true })
   @IsOptional()

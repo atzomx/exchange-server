@@ -11,7 +11,7 @@ import {
 const DEFAULT_PAGINATION = 15;
 
 class Repository<T> {
-  private instance: typeof Model;
+  public instance: typeof Model;
 
   constructor(instance: typeof Model) {
     this.instance = instance;

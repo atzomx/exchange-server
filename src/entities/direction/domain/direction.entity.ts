@@ -7,6 +7,10 @@ class Direction {
   @Field(() => ID)
   readonly id?: ObjectId;
 
+  @Field(() => String)
+  @prop({ required: true })
+  readonly owner!: ObjectId;
+
   @Field()
   @prop({ required: true })
   public nameDirection!: string;
@@ -33,7 +37,7 @@ class Direction {
 
   @Field()
   @prop({ required: true })
-  public zipCode!: number;
+  public zipCode!: string;
 
   @Field()
   @prop({ required: false })

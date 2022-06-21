@@ -1,4 +1,5 @@
 import { PaginateArgs } from "@core/infrastructure/responses";
+import { UserRepository } from "@entities/users";
 import Direction from "../domain/direction.entity";
 import { DirectionNotFoundError } from "../domain/direction.errors";
 import DirectionRepository from "../domain/direction.repository";
@@ -50,6 +51,8 @@ class DirectionController {
 
     const newDirection = { ...direction, ...sanitized };
     const result = await this.repository.create({ ...newDirection });
+    const userRepository = new UserRepository();
+    await userRepository.addDirection(result.id, direction.owner);
     return result;
   }
 

@@ -1,7 +1,9 @@
-import { prop } from "@typegoose/typegoose";
+import { Direction } from "@entities/direction";
+import { prop, Ref } from "@typegoose/typegoose";
 import { ObjectId } from "mongoose";
 import { Field, ID, ObjectType } from "type-graphql";
 import { IUserGender, IUserStatus } from "./user.enums";
+
 @ObjectType()
 class User {
   @Field(() => ID, { description: "User identifier." })
@@ -57,6 +59,10 @@ class User {
   @Field(() => IUserStatus, { description: "User status." })
   @prop({ required: true, enum: IUserStatus })
   public status!: string;
+
+  @Field(() => [Direction], { description: "User directions." })
+  @prop({ ref: () => Direction })
+  public directions?: Ref<Direction>[];
 }
 
 export default User;

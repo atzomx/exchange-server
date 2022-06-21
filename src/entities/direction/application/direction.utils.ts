@@ -6,7 +6,7 @@ type SanitizeDirection = {
   neighborhood: string;
   street: string;
   outdoorNumber: number;
-  zipCode: number;
+  zipCode: string;
 };
 
 const sanitize = ({

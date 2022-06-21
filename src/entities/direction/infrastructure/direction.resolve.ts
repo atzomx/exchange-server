@@ -41,7 +41,7 @@ class DirectionResolver {
   @Mutation(() => Direction)
   @ValidateIdentifier(DirectionInputUpdate, "id")
   @ValidateArgs(DirectionInputUpdate, "data")
-  async userUpdate(
+  async directionUpdate(
     @Arg("id") id: string,
     @Arg("data") direction: DirectionInputUpdate,
   ) {
