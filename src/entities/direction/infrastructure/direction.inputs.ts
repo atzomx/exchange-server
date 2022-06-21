@@ -11,7 +11,7 @@ export class DirectionInputCreate {
   @Field()
   @MinLength(1)
   @MaxLength(30)
-  public estate!: string;
+  public state!: string;
 
   @Field()
   @MinLength(1)
@@ -54,7 +54,7 @@ export class DirectionInputUpdate {
   @IsOptional()
   @MinLength(1)
   @MaxLength(30)
-  public estate?: string;
+  public state?: string;
 
   @Field({ nullable: true })
   @IsOptional()

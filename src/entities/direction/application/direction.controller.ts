@@ -40,7 +40,7 @@ class DirectionController {
 
   async directionCreate(direction: DirectionInputCreate): Promise<Direction> {
     const sanitized = directionUtils.sanitize({
-      estate: direction.estate,
+      state: direction.state,
       town: direction.town,
       neighborhood: direction.neighborhood,
       street: direction.street,
@@ -61,7 +61,7 @@ class DirectionController {
     if (!currentDirection) throw new DirectionNotFoundError();
 
     const sanitized = directionUtils.sanitize({
-      estate: direction.estate ?? currentDirection.estate,
+      state: direction.state ?? currentDirection.state,
       town: direction.town ?? currentDirection.town,
       neighborhood: direction.neighborhood ?? currentDirection.neighborhood,
       street: direction.street ?? currentDirection.street,

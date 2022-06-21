@@ -1,7 +1,7 @@
 import { Sanitize } from "@core/infrastructure/utils";
 
 type SanitizeDirection = {
-  estate: string;
+  state: string;
   town: string;
   neighborhood: string;
   street: string;
@@ -10,7 +10,7 @@ type SanitizeDirection = {
 };
 
 const sanitize = ({
-  estate: _est,
+  state: _est,
   town: _tow,
   neighborhood: _neig,
   street: _stre,
@@ -19,7 +19,7 @@ const sanitize = ({
 }: SanitizeDirection) => {
   const fullDirection = [_est, _tow, _neig, _stre].map(Sanitize.clean);
 
-  const [estate, town, neighborhood, street] = fullDirection;
+  const [state, town, neighborhood, street] = fullDirection;
 
   const normalizedFullDirection = fullDirection
     .join(" ")
@@ -28,7 +28,7 @@ const sanitize = ({
 
   return {
     normalizedFullDirection,
-    estate,
+    state,
     town,
     neighborhood,
     street,

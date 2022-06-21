@@ -13,7 +13,7 @@ class Direction {
 
   @Field()
   @prop({ required: true })
-  public estate!: string;
+  public state!: string;
 
   @Field()
   @prop({ required: true })
