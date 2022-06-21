@@ -4,40 +4,40 @@ import { IUserGender, IUserStatus } from "../domain/user.enums";
 
 @InputType()
 export class UserInputCreate {
-  @Field()
+  @Field({ description: "First name of user." })
   @MinLength(1)
   @MaxLength(30)
   public firstName!: string;
 
-  @Field()
+  @Field({ description: "User last name." })
   @MinLength(1)
   @MaxLength(30)
   public lastName!: string;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, description: "User second last name." })
   @MinLength(1)
   @MaxLength(30)
   public secondLastName?: string;
 
-  @Field()
+  @Field({ description: "User profile image." })
   public image?: string;
 
-  @Field()
+  @Field({ description: "Identifying number." })
   @Length(18)
   public curp!: string;
 
-  @Field(() => IUserGender)
+  @Field(() => IUserGender, { description: "User gender." })
   public gender!: IUserGender;
 
-  @Field()
+  @Field({ description: "User birthday YYYY-MM-DD." })
   public birthday!: Date;
 
-  @Field()
+  @Field({ description: "User phone number." })
   @MinLength(7)
   @MaxLength(15)
   public phoneNumber!: string;
 
-  @Field()
+  @Field({ description: "User email." })
   public email!: string;
 
   @Field()
@@ -45,7 +45,7 @@ export class UserInputCreate {
   @MaxLength(16)
   public password!: string;
 
-  @Field()
+  @Field({ description: "Username." })
   @MinLength(8)
   @MaxLength(16)
   public userName!: string;
@@ -55,37 +55,37 @@ export class UserInputCreate {
 
 @InputType()
 export class UserInputUpdate {
-  @Field({ nullable: true })
+  @Field({ nullable: true, description: "First name of user." })
   @IsOptional()
   @MaxLength(30)
   public firstName?: string;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, description: "User last name." })
   @IsOptional()
   @MinLength(1)
   @MaxLength(30)
   public lastName?: string;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, description: "User second last name." })
   @IsOptional()
   @MinLength(1)
   @MaxLength(30)
   public secondLastName?: string;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, description: "Identifying number." })
   @IsOptional()
   @Length(18, 18)
   public curp?: string;
 
-  @Field(() => IUserGender, { nullable: true })
+  @Field(() => IUserGender, { nullable: true, description: "User gender." })
   @IsOptional()
   public gender?: IUserGender;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, description: "User birthday YYYY-MM-DD." })
   @IsOptional()
   public birthday?: Date;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, description: "User phone number." })
   @IsOptional()
   @MaxLength(15)
   public phoneNumber?: string;

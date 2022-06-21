@@ -3,7 +3,15 @@ import {
   ValidateIdentifier,
 } from "@core/infrastructure/decorators";
 import { PaginateArgs } from "@core/infrastructure/responses";
-import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
+import { AuthMiddleware } from "@entities/auth";
+import {
+  Arg,
+  Args,
+  Mutation,
+  Query,
+  Resolver,
+  UseMiddleware,
+} from "type-graphql";
 import UserController from "../application/user.controller";
 import User from "../domain/user.entity";
 import { UserInputCreate, UserInputUpdate } from "./user.inputs";
@@ -23,22 +31,21 @@ class UserResolver {
     return user;
   }
 
-  @Query(() => UserPaginateResponse, {
-    description: "Returns an array of users",
-  })
+  @Query(() => UserPaginateResponse, {description: "Returns an array of users."})
   async usersPaginate(@Args() { page, limit }: PaginateArgs) {
     const results = await this.controller.usersPaginate({ page, limit });
     return results;
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, {description: "Register a new user.",})
   @ValidateArgs(UserInputCreate, "data")
   async userCreate(@Arg("data") user: UserInputCreate) {
     const result = await this.controller.userCreate(user);
     return result;
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, {description: "Update an existing user by id.",})
+  @UseMiddleware(AuthMiddleware.IsAuth)
   @ValidateIdentifier(UserInputUpdate, "id")
   @ValidateArgs(UserInputUpdate, "data")
   async userUpdate(@Arg("id") id: string, @Arg("data") user: UserInputUpdate) {

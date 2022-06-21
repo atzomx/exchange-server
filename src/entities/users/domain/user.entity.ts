@@ -4,57 +4,57 @@ import { Field, ID, ObjectType } from "type-graphql";
 import { IUserGender, IUserStatus } from "./user.enums";
 @ObjectType()
 class User {
-  @Field(() => ID)
+  @Field(() => ID, { description: "User identifier." })
   readonly id?: ObjectId;
 
-  @Field()
+  @Field({ description: "First name of user." })
   @prop({ required: true })
   public firstName!: string;
 
-  @Field()
+  @Field({ description: "User last name." })
   @prop({ required: true })
   public lastName!: string;
 
-  @Field()
+  @Field({ description: "User second last name." })
   @prop({ required: true })
   public secondLastName?: string;
 
-  @Field()
+  @Field({ description: "Normalized user full name." })
   @prop({ required: false, index: 1 })
   public normalizedFullName?: string;
 
-  @Field()
+  @Field({ description: "User profile image." })
   @prop({ required: true })
   public image?: string;
 
-  @Field()
+  @Field({ description: "Identifying number." })
   @prop({ required: true, unique: true })
   public curp!: string;
 
-  @Field(() => IUserGender)
+  @Field(() => IUserGender, { description: "User gender." })
   @prop({ required: true, enum: IUserGender })
   public gender!: IUserGender;
 
-  @Field()
+  @Field({ description: "User birthday YYYY-MM-DD." })
   @prop({ required: true })
   public birthday!: Date;
 
-  @Field()
+  @Field({ description: "User phone number." })
   @prop({ required: true })
   public phoneNumber!: string;
 
-  @Field()
+  @Field({ description: "User email." })
   @prop({ required: true, unique: true })
   public email!: string;
 
   @prop({ required: true })
   public password!: string;
 
-  @Field()
+  @Field({ description: "Username." })
   @prop({ required: true, unique: true })
   public userName!: string;
 
-  @Field(() => IUserStatus)
+  @Field(() => IUserStatus, { description: "User status." })
   @prop({ required: true, enum: IUserStatus })
   public status!: string;
 }
