@@ -1,19 +1,22 @@
-import { prop } from "@typegoose/typegoose";
-import { ObjectId } from "mongoose";
+/* eslint-disable no-underscore-dangle */
+import { Types } from "mongoose";
 import { Field, ID, ObjectType } from "type-graphql";
+import { User } from "@entities/users";
+import { index, prop, Ref } from "@typegoose/typegoose";
 
+@index({ owner: 1, name: 1 }, { unique: true })
 @ObjectType()
 class Direction {
   @Field(() => ID)
-  readonly id?: ObjectId;
+  readonly _id?: Types.ObjectId;
 
   @Field(() => String)
-  @prop({ required: true })
-  readonly owner!: ObjectId;
+  @prop({ required: true, ref: () => User })
+  readonly owner!: Ref<User, Types.ObjectId>;
 
   @Field()
   @prop({ required: true })
-  public nameDirection!: string;
+  public name!: string;
 
   @Field()
   @prop({ required: true })

@@ -1,8 +1,11 @@
-import { PaginateArgs } from "@core/infrastructure/responses";
-import { UserRepository } from "@entities/users";
+import { Sanitizer } from "@core/infrastructure/utils";
 import Direction from "../domain/direction.entity";
-import { DirectionNotFoundError } from "../domain/direction.errors";
+import {
+  DirectionAlreadyExistsError,
+  DirectionNotFoundError,
+} from "../domain/direction.errors";
 import DirectionRepository from "../domain/direction.repository";
+import { DirectionPaginateArgs } from "../infrastructure/direction.args";
 import {
   DirectionInputCreate,
   DirectionInputUpdate,
@@ -20,8 +23,21 @@ class DirectionController {
     return this.repository.findById(id);
   }
 
-  async directionPaginate({ page, limit }: PaginateArgs) {
-    const paginator = this.repository.paginate({}, { limit, page });
+  async directionPaginate({
+    page,
+    limit,
+    owner,
+    search = "",
+  }: DirectionPaginateArgs) {
+    const cleanSearch = new Sanitizer(search).clean().accents().toString();
+    const searchRegex = new RegExp(cleanSearch, "i");
+    const paginator = this.repository.paginate(
+      {
+        owner,
+        ...(search ? { normalizedFullDirection: searchRegex } : {}),
+      },
+      { limit, page },
+    );
 
     const [results, total] = await Promise.all([
       paginator.getResults(),
@@ -40,19 +56,18 @@ class DirectionController {
   }
 
   async directionCreate(direction: DirectionInputCreate): Promise<Direction> {
-    const sanitized = directionUtils.sanitize({
-      state: direction.state,
-      town: direction.town,
-      neighborhood: direction.neighborhood,
-      street: direction.street,
-      outdoorNumber: direction.outdoorNumber,
-      zipCode: direction.zipCode,
-    });
+    const query = {
+      $and: [{ name: direction.name }, { owner: direction.owner }],
+    };
+
+    const existingDirection = await this.repository.findOne(query);
+    if (existingDirection)
+      throw new DirectionAlreadyExistsError(direction.name);
+
+    const sanitized = directionUtils.sanitize({ ...direction });
 
     const newDirection = { ...direction, ...sanitized };
     const result = await this.repository.create({ ...newDirection });
-    const userRepository = new UserRepository();
-    await userRepository.addDirection(result.id, direction.owner);
     return result;
   }
 
@@ -64,12 +79,8 @@ class DirectionController {
     if (!currentDirection) throw new DirectionNotFoundError();
 
     const sanitized = directionUtils.sanitize({
-      state: direction.state ?? currentDirection.state,
-      town: direction.town ?? currentDirection.town,
-      neighborhood: direction.neighborhood ?? currentDirection.neighborhood,
-      street: direction.street ?? currentDirection.street,
-      outdoorNumber: direction.outdoorNumber ?? currentDirection.outdoorNumber,
-      zipCode: direction.zipCode ?? currentDirection.zipCode,
+      ...direction,
+      ...currentDirection,
     });
 
     const dataToUpdate = { ...direction, ...sanitized };
