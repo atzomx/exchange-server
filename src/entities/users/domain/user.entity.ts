@@ -1,3 +1,4 @@
+import { Direction } from "@entities/direction";
 import { prop } from "@typegoose/typegoose";
 import { Types } from "mongoose";
 import { Field, ID, ObjectType } from "type-graphql";
@@ -58,6 +59,10 @@ class User {
   @Field(() => IUserStatus, { description: "User status." })
   @prop({ required: true, enum: IUserStatus })
   public status!: string;
+
+  @Field(() => [Direction], { description: "User directions." })
+  @prop({ type: () => [Types.ObjectId], default: [], ref: Direction })
+  public directions?: Types.ObjectId[];
 }
 
 export default User;

@@ -1,5 +1,7 @@
 import { PaginateArgs } from "@core/infrastructure/responses";
 import { Password } from "@core/infrastructure/utils";
+import { Direction } from "@entities/direction";
+import { Types } from "mongoose";
 import User from "../domain/user.entity";
 import {
   UserAlreadyExistsError,
@@ -20,7 +22,7 @@ class UserController {
   }
 
   userById(id: string) {
-    return this.repository.findById(id);
+    return this.repository.findById(id).populate("directions");
   }
 
   async usersPaginate({ page, limit }: PaginateArgs) {
@@ -82,6 +84,17 @@ class UserController {
       dataToUpdate,
     );
     return updatedUser;
+  }
+
+  async linkDirection(
+    userId: Types.ObjectId,
+    direction: Direction,
+  ): Promise<User> {
+    const currentUser = await this.repository.findByIdAndUpdate(userId, {
+      $push: { directions: direction },
+    });
+    if (!currentUser) throw new UserNotFoundError();
+    return currentUser;
   }
 }
 

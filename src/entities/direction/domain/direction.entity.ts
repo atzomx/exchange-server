@@ -1,8 +1,6 @@
-/* eslint-disable no-underscore-dangle */
 import { Types } from "mongoose";
 import { Field, ID, ObjectType } from "type-graphql";
-import { User } from "@entities/users";
-import { index, prop, Ref } from "@typegoose/typegoose";
+import { index, prop } from "@typegoose/typegoose";
 
 @index({ owner: 1, name: 1 }, { unique: true })
 @ObjectType()
@@ -11,8 +9,8 @@ class Direction {
   readonly _id?: Types.ObjectId;
 
   @Field(() => String)
-  @prop({ required: true, ref: () => User })
-  readonly owner!: Ref<User, Types.ObjectId>;
+  @prop({ required: true })
+  readonly owner!: Types.ObjectId;
 
   @Field()
   @prop({ required: true })

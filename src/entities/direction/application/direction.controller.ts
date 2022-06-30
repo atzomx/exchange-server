@@ -1,4 +1,5 @@
 import { Sanitizer } from "@core/infrastructure/utils";
+import { UserController } from "@entities/users";
 import Direction from "../domain/direction.entity";
 import {
   DirectionAlreadyExistsError,
@@ -68,6 +69,10 @@ class DirectionController {
 
     const newDirection = { ...direction, ...sanitized };
     const result = await this.repository.create({ ...newDirection });
+
+    const useController = new UserController();
+    await useController.linkDirection(direction.owner, result);
+
     return result;
   }
 
