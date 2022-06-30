@@ -18,7 +18,7 @@ class AuthController {
     const isValid = Password.compare(user.password, password);
 
     if (!isValid) throw new InvalidCredentialsError();
-    const token = AuthUtils.getToken(`${user.id}`);
+    const token = AuthUtils.getToken(`${user._id}`);
     return token;
   }
 }

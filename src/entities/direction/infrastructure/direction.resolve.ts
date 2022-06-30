@@ -2,10 +2,10 @@ import {
   ValidateArgs,
   ValidateIdentifier,
 } from "@core/infrastructure/decorators";
-import { PaginateArgs } from "@core/infrastructure/responses";
 import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import DirectionController from "../application/direction.controller";
 import Direction from "../domain/direction.entity";
+import { DirectionPaginateArgs } from "./direction.args";
 import { DirectionInputCreate, DirectionInputUpdate } from "./direction.inputs";
 import { DirectionPaginateResponse } from "./direction.response";
 
@@ -26,8 +26,8 @@ class DirectionResolver {
   @Query(() => DirectionPaginateResponse, {
     description: "Returns an array of direction",
   })
-  async directionPaginate(@Args() { page, limit }: PaginateArgs) {
-    const results = await this.controller.directionPaginate({ page, limit });
+  async directionPaginate(@Args() data: DirectionPaginateArgs) {
+    const results = await this.controller.directionPaginate(data);
     return results;
   }
 
@@ -41,7 +41,7 @@ class DirectionResolver {
   @Mutation(() => Direction)
   @ValidateIdentifier(DirectionInputUpdate, "id")
   @ValidateArgs(DirectionInputUpdate, "data")
-  async userUpdate(
+  async directionUpdate(
     @Arg("id") id: string,
     @Arg("data") direction: DirectionInputUpdate,
   ) {

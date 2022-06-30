@@ -5,13 +5,13 @@ import {
   FilterQuery,
   HydratedDocument,
   Model,
-  ObjectId,
+  Types,
 } from "mongoose";
 
 const DEFAULT_PAGINATION = 15;
 
 class Repository<T> {
-  private instance: typeof Model;
+  public instance: typeof Model;
 
   constructor(instance: typeof Model) {
     this.instance = instance;
@@ -29,11 +29,14 @@ class Repository<T> {
     return this.instance.findOne<T>(filter);
   }
 
-  findById(id: string | ObjectId) {
+  findById(id: string | Types.ObjectId) {
     return this.instance.findById<T>(id);
   }
 
-  findByIdAndUpdate(id: string | ObjectId, entity: AnyObject | AnyKeys<T>) {
+  findByIdAndUpdate(
+    id: string | Types.ObjectId,
+    entity: AnyObject | AnyKeys<T>,
+  ) {
     return this.instance.findByIdAndUpdate<T>(id, entity, {
       runValidators: true,
       new: true,

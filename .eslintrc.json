@@ -16,7 +16,7 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }],
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": "off",
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
     "strict": [2, "never"],
@@ -30,7 +30,6 @@
     "no-confusing-arrow": "off",
     "import/no-unresolved": "off",
     "no-console": "warn",
-
     "arrow-parens": "off",
     "function-paren-newline": "off",
     "default-case": "off",

@@ -6,34 +6,34 @@ type SanitizeDirection = {
   neighborhood: string;
   street: string;
   outdoorNumber: number;
-  zipCode: number;
+  zipCode: string;
+  name: string;
 };
 
 const sanitize = ({
-  state: _est,
-  town: _tow,
-  neighborhood: _neig,
-  street: _stre,
+  name,
+  state,
+  town,
+  neighborhood,
+  street,
   outdoorNumber,
   zipCode,
 }: SanitizeDirection) => {
-  const fullDirection = [_est, _tow, _neig, _stre].map(Sanitize.clean);
+  const fullDirection = [
+    name,
+    street,
+    outdoorNumber.toString(),
+    neighborhood,
+    town,
+    state,
+  ]
+    .map(Sanitize.clean)
+    .map(Sanitize.accents);
 
-  const [state, town, neighborhood, street] = fullDirection;
-
-  const normalizedFullDirection = fullDirection
-    .join(" ")
-    .concat(outdoorNumber.toString())
-    .concat(zipCode.toString());
+  const normalizedFullDirection = [...fullDirection, zipCode].join(" ");
 
   return {
     normalizedFullDirection,
-    state,
-    town,
-    neighborhood,
-    street,
-    outdoorNumber,
-    zipCode,
   };
 };
 

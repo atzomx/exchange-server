@@ -1,15 +1,20 @@
-import { prop } from "@typegoose/typegoose";
-import { ObjectId } from "mongoose";
+import { Types } from "mongoose";
 import { Field, ID, ObjectType } from "type-graphql";
+import { index, prop } from "@typegoose/typegoose";
 
+@index({ owner: 1, name: 1 }, { unique: true })
 @ObjectType()
 class Direction {
   @Field(() => ID)
-  readonly id?: ObjectId;
+  readonly _id?: Types.ObjectId;
+
+  @Field(() => String)
+  @prop({ required: true })
+  readonly owner!: Types.ObjectId;
 
   @Field()
   @prop({ required: true })
-  public nameDirection!: string;
+  public name!: string;
 
   @Field()
   @prop({ required: true })
@@ -33,7 +38,7 @@ class Direction {
 
   @Field()
   @prop({ required: true })
-  public zipCode!: number;
+  public zipCode!: string;
 
   @Field()
   @prop({ required: false })

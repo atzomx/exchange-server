@@ -9,3 +9,15 @@ export class DirectionNotFoundError extends UserInputError {
     super("Direction not found", { errors });
   }
 }
+
+export class DirectionAlreadyExistsError extends UserInputError {
+  constructor(name: string) {
+    const errors: Array<ICustomError> = [
+      {
+        constrains: `Direction ${name} already exists for this user`,
+        property: "name",
+      },
+    ];
+    super("Direction name already exists", { errors });
+  }
+}
