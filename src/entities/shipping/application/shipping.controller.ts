@@ -14,11 +14,11 @@ class ShippingController {
     this.repository = new ShippingRepository();
   }
 
-  shippingById(id: string) {
+  findById(id: string) {
     return this.repository.findById(id);
   }
 
-  async shippingPaginate({ page, limit, exchangeId }: ShippingPaginateArgs) {
+  async paginate({ page, limit, exchangeId }: ShippingPaginateArgs) {
     const paginator = this.repository.paginate(
       {
         exchangeId,
@@ -42,16 +42,13 @@ class ShippingController {
     };
   }
 
-  async shippingCreate(shipping: ShippingInputCreate): Promise<Shipping> {
+  async create(shipping: ShippingInputCreate): Promise<Shipping> {
     const newShipping = { ...shipping };
     const result = await this.repository.create({ ...newShipping });
     return result;
   }
 
-  async shippingUpdate(
-    id: string,
-    shipping: ShippingInputUpdate,
-  ): Promise<Shipping> {
+  async update(id: string, shipping: ShippingInputUpdate): Promise<Shipping> {
     const currentShipping = await this.repository.findById(id);
     if (!currentShipping) throw new ShippingNotFoundError();
     const dataToUpdate = { ...shipping };

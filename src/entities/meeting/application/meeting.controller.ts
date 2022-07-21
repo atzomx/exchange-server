@@ -14,11 +14,11 @@ class MeetingController {
     this.repository = new MeetingRepository();
   }
 
-  meetingById(id: string) {
+  findById(id: string) {
     return this.repository.findById(id);
   }
 
-  async meetingPaginate({ page, limit, exchangeId }: MeetingPaginateArgs) {
+  async paginate({ page, limit, exchangeId }: MeetingPaginateArgs) {
     const paginator = this.repository.paginate(
       {
         exchangeId,
@@ -42,16 +42,13 @@ class MeetingController {
     };
   }
 
-  async meetingCreate(meeting: MeetingInputCreate): Promise<Meeting> {
+  async create(meeting: MeetingInputCreate): Promise<Meeting> {
     const newMeeting = { ...meeting };
     const result = await this.repository.create({ ...newMeeting });
     return result;
   }
 
-  async meetingUpdate(
-    id: string,
-    meeting: MeetingInputUpdate,
-  ): Promise<Meeting> {
+  async update(id: string, meeting: MeetingInputUpdate): Promise<Meeting> {
     const currentMeeting = await this.repository.findById(id);
     if (!currentMeeting) throw new MeetingNotFoundError();
     const dataToUpdate = { ...meeting };
