@@ -24,7 +24,7 @@ class MeetingResolver {
   }
 
   @Query(() => MeetingPaginateResponse, {
-    description: "Returns an array of direction",
+    description: "Returns an array of meeting",
   })
   async meetingPaginate(@Args() data: MeetingPaginateArgs) {
     const results = await this.controller.meetingPaginate(data);
@@ -33,8 +33,8 @@ class MeetingResolver {
 
   @Mutation(() => Meeting)
   @ValidateArgs(MeetingInputCreate, "data")
-  async meetingCreate(@Arg("data") direction: MeetingInputCreate) {
-    const result = await this.controller.meetingCreate(direction);
+  async meetingCreate(@Arg("data") meeting: MeetingInputCreate) {
+    const result = await this.controller.meetingCreate(meeting);
     return result;
   }
 
@@ -43,12 +43,9 @@ class MeetingResolver {
   @ValidateArgs(MeetingInputUpdate, "data")
   async meetingUpdate(
     @Arg("id") id: string,
-    @Arg("data") direction: MeetingInputUpdate,
+    @Arg("data") meeting: MeetingInputUpdate,
   ) {
-    const result = await this.controller.meetingUpdate(
-      id.toString(),
-      direction,
-    );
+    const result = await this.controller.meetingUpdate(id.toString(), meeting);
     return result;
   }
 }
