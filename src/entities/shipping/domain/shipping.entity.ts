@@ -3,7 +3,7 @@ import { Field, ID, ObjectType } from "type-graphql";
 import { prop } from "@typegoose/typegoose";
 
 @ObjectType()
-class Meeting {
+class Shipping {
   @Field(() => ID)
   readonly _id?: Types.ObjectId;
 
@@ -13,11 +13,11 @@ class Meeting {
 
   @Field()
   @prop({ required: true })
-  public date!: Date;
+  public origin!: string;
 
   @Field()
   @prop({ required: true })
-  public place!: string;
+  public destination!: string;
 
   @Field()
   @prop({ required: true })
@@ -25,7 +25,11 @@ class Meeting {
 
   @Field()
   @prop({ required: true })
+  public trackingGuide!: string;
+
+  @Field()
+  @prop({ required: true })
   public status!: string;
 }
 
-export default Meeting;
+export default Shipping;

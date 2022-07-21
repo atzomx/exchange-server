@@ -3,17 +3,19 @@ import { Field, InputType } from "type-graphql";
 import { Types } from "mongoose";
 
 @InputType()
-export class MeetingInputCreate {
+export class ShippingInputCreate {
   @Field(() => String)
   public exchangeId!: Types.ObjectId;
 
   @Field()
-  public date!: Date;
+  @MinLength(1)
+  @MaxLength(60)
+  public origin!: string;
 
   @Field()
   @MinLength(1)
   @MaxLength(60)
-  public place!: string;
+  public destination!: string;
 
   @Field()
   @MinLength(1)
@@ -23,20 +25,27 @@ export class MeetingInputCreate {
   @Field()
   @MinLength(1)
   @MaxLength(60)
+  public trackingGuide!: string;
+
+  @Field()
+  @MinLength(1)
+  @MaxLength(60)
   public status!: string;
 }
 
 @InputType()
-export class MeetingInputUpdate {
+export class ShippingInputUpdate {
   @Field({ nullable: true })
   @IsOptional()
-  public date?: Date;
+  @MinLength(1)
+  @MaxLength(60)
+  public origin?: string;
 
   @Field({ nullable: true })
   @IsOptional()
   @MinLength(1)
   @MaxLength(60)
-  public place?: string;
+  public destination?: string;
 
   @Field({ nullable: true })
   @IsOptional()
@@ -48,10 +57,16 @@ export class MeetingInputUpdate {
   @IsOptional()
   @MinLength(1)
   @MaxLength(60)
+  public trackingGuide?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @MinLength(1)
+  @MaxLength(60)
   public status?: string;
 }
 
 export default {
-  MeetingInputCreate,
-  MeetingInputUpdate,
+  ShippingInputCreate,
+  ShippingInputUpdate,
 };
