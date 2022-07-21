@@ -4,7 +4,7 @@ export enum IExchageStatus {
   "pending" = "pending",
   "rejected" = "rejected",
   "accepted" = "accepted",
-  "in-progress" = "in-progress",
+  "processing" = "processing",
   "validating" = "validating",
 }
 
@@ -14,11 +14,11 @@ export enum IExchageType {
 }
 
 registerEnumType(IExchageStatus, {
-  name: "Exhange Status",
+  name: "ExhangeStatus",
   description: "Exhange Status",
 });
 
 registerEnumType(IExchageType, {
-  name: "Exhange Types",
+  name: "ExhangeTypes",
   description: "Exhange Types",
 });

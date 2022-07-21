@@ -25,3 +25,18 @@ export class ExchangeInputCreate {
   @Field(() => Number)
   public amount!: number;
 }
+
+@InputType()
+export class ExchangeInputUpdate {
+  @Field(() => IExchageType)
+  public type?: IExchageStatus;
+
+  @Field(() => String)
+  public description?: string;
+
+  @Field(() => String)
+  public indications?: string;
+
+  @Field(() => Number)
+  public amount?: number;
+}
