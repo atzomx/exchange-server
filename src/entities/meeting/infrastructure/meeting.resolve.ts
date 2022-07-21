@@ -2,12 +2,15 @@ import {
   ValidateArgs,
   ValidateIdentifier,
 } from "@core/infrastructure/decorators";
+import NamerUtils from "@core/infrastructure/utils/namer.utils";
 import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import MeetingController from "../application/meeting.controller";
 import Meeting from "../domain/meeting.entity";
 import { MeetingPaginateArgs } from "./meeting.args";
 import { MeetingInputCreate, MeetingInputUpdate } from "./meeting.inputs";
 import { MeetingPaginateResponse } from "./meeting.response";
+
+const NAMES = NamerUtils.get("meeting");
 
 @Resolver(Meeting)
 class MeetingResolver {
@@ -17,35 +20,39 @@ class MeetingResolver {
     this.controller = new MeetingController();
   }
 
-  @Query(() => Meeting, { description: "Returns one meeting by id" })
+  @Query(() => Meeting, {
+    description: "Returns one meeting by id.",
+    name: NAMES.find,
+  })
   async meetingById(@Arg("id") id: string): Promise<Meeting> {
-    const user = await this.controller.meetingById(id);
+    const user = await this.controller.findById(id);
     return user;
   }
 
   @Query(() => MeetingPaginateResponse, {
-    description: "Returns an array of meeting",
+    description: "Returns an array of meetings.",
+    name: NAMES.paginate,
   })
   async meetingPaginate(@Args() data: MeetingPaginateArgs) {
-    const results = await this.controller.meetingPaginate(data);
+    const results = await this.controller.paginate(data);
     return results;
   }
 
-  @Mutation(() => Meeting)
+  @Mutation(() => Meeting, { name: NAMES.create })
   @ValidateArgs(MeetingInputCreate, "data")
-  async meetingCreate(@Arg("data") meeting: MeetingInputCreate) {
-    const result = await this.controller.meetingCreate(meeting);
+  async create(@Arg("data") meeting: MeetingInputCreate) {
+    const result = await this.controller.create(meeting);
     return result;
   }
 
-  @Mutation(() => Meeting)
+  @Mutation(() => Meeting, { name: NAMES.update })
   @ValidateIdentifier(MeetingInputUpdate, "id")
   @ValidateArgs(MeetingInputUpdate, "data")
-  async meetingUpdate(
+  async update(
     @Arg("id") id: string,
     @Arg("data") meeting: MeetingInputUpdate,
   ) {
-    const result = await this.controller.meetingUpdate(id.toString(), meeting);
+    const result = await this.controller.update(id.toString(), meeting);
     return result;
   }
 }

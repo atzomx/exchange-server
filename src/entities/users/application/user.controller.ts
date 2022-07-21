@@ -21,11 +21,11 @@ class UserController {
     this.repository = new UserRepository();
   }
 
-  userById(id: string) {
+  findById(id: string) {
     return this.repository.findById(id).populate("directions");
   }
 
-  async usersPaginate({ page, limit }: PaginateArgs) {
+  async paginate({ page, limit }: PaginateArgs) {
     const paginator = this.repository.paginate({}, { limit, page });
 
     const [results, total] = await Promise.all([
@@ -44,7 +44,7 @@ class UserController {
     };
   }
 
-  async userCreate(user: UserInputCreate): Promise<User> {
+  async create(user: UserInputCreate): Promise<User> {
     const query = {
       $or: [
         { email: user.email },
@@ -68,7 +68,7 @@ class UserController {
     return result;
   }
 
-  async userUpdate(id: string, user: UserInputUpdate): Promise<User> {
+  async update(id: string, user: UserInputUpdate): Promise<User> {
     const currentUser = await this.repository.findById(id);
     if (!currentUser) throw new UserNotFoundError();
 
