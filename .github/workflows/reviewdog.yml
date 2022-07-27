@@ -6,9 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: reviewdog/action-eslint@v1
+      - uses: reviewdog/action-eslint@v1.16.1
         with:
-          reporter: github-pr-review # Change reporter.
+          github_token: ${{ secrets.github_token }}
+          reporter: github-check # Change reporter.
           eslint_flags: "src/"
-name: Run eslint with reviewdog
-uses: reviewdog/action-eslint@v1.16.1
