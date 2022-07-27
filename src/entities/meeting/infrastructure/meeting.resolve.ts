@@ -38,14 +38,20 @@ class MeetingResolver {
     return results;
   }
 
-  @Mutation(() => Meeting, { name: NAMES.create })
+  @Mutation(() => Meeting, {
+    name: NAMES.create,
+    description: "Register a new Meeting.",
+  })
   @ValidateArgs(MeetingInputCreate, "data")
   async create(@Arg("data") meeting: MeetingInputCreate) {
     const result = await this.controller.create(meeting);
     return result;
   }
 
-  @Mutation(() => Meeting, { name: NAMES.update })
+  @Mutation(() => Meeting, {
+    name: NAMES.update,
+    description: "Update a new Meeting.",
+  })
   @ValidateIdentifier(MeetingInputUpdate, "id")
   @ValidateArgs(MeetingInputUpdate, "data")
   async update(
