@@ -26,6 +26,7 @@ class MeetingResolver {
   })
   async meetingById(@Arg("id") id: string): Promise<Meeting> {
     const user = await this.controller.findById(id);
+    const platano = "hola mundo";
     return user;
   }
 
