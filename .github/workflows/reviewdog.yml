@@ -9,5 +9,5 @@ jobs:
       - uses: reviewdog/action-eslint@v1.16.1
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: github-check # Change reporter.
+          reporter: github-pr-review # Change reporter.
           eslint_flags: "src/"
