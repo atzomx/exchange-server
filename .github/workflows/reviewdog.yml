@@ -1,4 +1,4 @@
-name: reviewdog
+name: Run eslint with reviewdog
 on: [pull_request]
 jobs:
   eslint:
@@ -7,7 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: yarn install
-      - name: Run eslint with reviewdog
       - uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.github_token }}
