@@ -25,7 +25,7 @@ class UserResolver {
     this.controller = new UserController();
   }
 
-  @Query(() => User, { description: "Returns one user by id" })
+  @Query(() => User, { description: "Returns one user by id." })
   async userById(@Arg("id") id: string): Promise<User> {
     const user = await this.controller.userById(id);
     return user;
@@ -37,14 +37,14 @@ class UserResolver {
     return results;
   }
 
-  @Mutation(() => User, {description: "Register a new user.",})
+  @Mutation(() => User, {description: "Register a new user."})
   @ValidateArgs(UserInputCreate, "data")
   async userCreate(@Arg("data") user: UserInputCreate) {
     const result = await this.controller.userCreate(user);
     return result;
   }
 
-  @Mutation(() => User, {description: "Update an existing user by id.",})
+  @Mutation(() => User, {description: "Update an existing user by id."})
   @UseMiddleware(AuthMiddleware.IsAuth)
   @ValidateIdentifier(UserInputUpdate, "id")
   @ValidateArgs(UserInputUpdate, "data")
