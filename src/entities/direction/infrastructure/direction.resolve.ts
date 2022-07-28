@@ -6,7 +6,7 @@ import NamerUtils from "@core/infrastructure/utils/namer.utils";
 import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import DirectionController from "../application/direction.controller";
 import Direction from "../domain/direction.entity";
-import { DirectionPaginateArgs } from "./direction.args";
+import { DirectionPaginationArgs } from "./direction.args";
 import { DirectionInputCreate, DirectionInputUpdate } from "./direction.inputs";
 import { DirectionPaginateResponse } from "./direction.response";
 
@@ -33,7 +33,7 @@ class DirectionResolver {
     description: "Returns an array of direction.",
     name: NAMES.paginate,
   })
-  async paginate(@Args() data: DirectionPaginateArgs) {
+  async paginate(@Args() data: DirectionPaginationArgs) {
     const results = await this.controller.paginate(data);
     return results;
   }

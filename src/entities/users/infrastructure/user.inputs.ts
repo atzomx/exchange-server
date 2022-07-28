@@ -90,5 +90,3 @@ export class UserInputUpdate {
   @MaxLength(15)
   public phoneNumber?: string;
 }
-
-export default { UserInputCreate, UserInputUpdate };

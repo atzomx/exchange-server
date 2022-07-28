@@ -90,8 +90,3 @@ export class DirectionInputUpdate {
   @MaxLength(150)
   public extraIndications?: string;
 }
-
-export default {
-  DirectionInputCreate,
-  DirectionInputUpdate,
-};
