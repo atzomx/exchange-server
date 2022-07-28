@@ -1,7 +1,7 @@
 import Meeting from "../domain/meeting.entity";
 import { MeetingNotFoundError } from "../domain/meeting.errors";
 import MeetingRepository from "../domain/meeting.repository";
-import { MeetingPaginateArgs } from "../infrastructure/meeting.args";
+import { MeetingPaginationArgs } from "../infrastructure/meeting.args";
 import {
   MeetingInputCreate,
   MeetingInputUpdate,
@@ -18,7 +18,7 @@ class MeetingController {
     return this.repository.findById(id);
   }
 
-  async paginate({ page, limit, exchangeId }: MeetingPaginateArgs) {
+  async paginate({ page, limit, exchangeId }: MeetingPaginationArgs) {
     const paginator = this.repository.paginate(
       {
         exchangeId,
