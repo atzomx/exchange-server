@@ -10,7 +10,10 @@ class AuthResolver {
     this.controller = new AuthController();
   }
 
-  @Mutation(() => LoginResponse, { description: "Returns user token" })
+  @Mutation(() => LoginResponse, {
+    description: "Returns user token",
+    name: "userLogin",
+  })
   async userLogin(
     @Arg("userName") userName: string,
     @Arg("password") password: string,

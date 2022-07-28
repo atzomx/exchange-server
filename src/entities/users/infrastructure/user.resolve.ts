@@ -3,6 +3,7 @@ import {
   ValidateIdentifier,
 } from "@core/infrastructure/decorators";
 import { PaginateArgs } from "@core/infrastructure/responses";
+import NamerUtils from "@core/infrastructure/utils/namer.utils";
 import { AuthMiddleware } from "@entities/auth";
 import {
   Arg,
@@ -17,6 +18,8 @@ import User from "../domain/user.entity";
 import { UserInputCreate, UserInputUpdate } from "./user.inputs";
 import { UserPaginateResponse } from "./user.response";
 
+const NAMES = NamerUtils.get("user");
+
 @Resolver(User)
 class UserResolver {
   private controller: UserController;
@@ -25,31 +28,43 @@ class UserResolver {
     this.controller = new UserController();
   }
 
-  @Query(() => User, { description: "Returns one user by id." })
-  async userById(@Arg("id") id: string): Promise<User> {
-    const user = await this.controller.userById(id);
+  @Query(() => User, {
+    description: "Returns one user by id",
+    name: NAMES.find,
+  })
+  async findById(@Arg("id") id: string): Promise<User> {
+    const user = await this.controller.findById(id);
     return user;
   }
 
-  @Query(() => UserPaginateResponse, {description: "Returns an array of users."})
-  async usersPaginate(@Args() { page, limit }: PaginateArgs) {
-    const results = await this.controller.usersPaginate({ page, limit });
+  @Query(() => UserPaginateResponse, {
+    description: "Returns an array of users.",
+    name: NAMES.paginate,
+  })
+  async paginate(@Args() { page, limit }: PaginateArgs) {
+    const results = await this.controller.paginate({ page, limit });
     return results;
   }
 
-  @Mutation(() => User, {description: "Register a new user."})
+  @Mutation(() => User, {
+    description: "Register a new user.",
+    name: NAMES.create,
+  })
   @ValidateArgs(UserInputCreate, "data")
-  async userCreate(@Arg("data") user: UserInputCreate) {
-    const result = await this.controller.userCreate(user);
+  async create(@Arg("data") user: UserInputCreate) {
+    const result = await this.controller.create(user);
     return result;
   }
 
-  @Mutation(() => User, {description: "Update an existing user by id."})
+  @Mutation(() => User, {
+    description: "Update an existing user by id.",
+    name: NAMES.update,
+  })
   @UseMiddleware(AuthMiddleware.IsAuth)
   @ValidateIdentifier(UserInputUpdate, "id")
   @ValidateArgs(UserInputUpdate, "data")
-  async userUpdate(@Arg("id") id: string, @Arg("data") user: UserInputUpdate) {
-    const result = await this.controller.userUpdate(id.toString(), user);
+  async update(@Arg("id") id: string, @Arg("data") user: UserInputUpdate) {
+    const result = await this.controller.update(id.toString(), user);
     return result;
   }
 }

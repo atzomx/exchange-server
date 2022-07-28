@@ -20,16 +20,11 @@ class DirectionController {
     this.repository = new DirectionRepository();
   }
 
-  directionById(id: string) {
+  findById(id: string) {
     return this.repository.findById(id);
   }
 
-  async directionPaginate({
-    page,
-    limit,
-    owner,
-    search = "",
-  }: DirectionPaginateArgs) {
+  async paginate({ page, limit, owner, search = "" }: DirectionPaginateArgs) {
     const cleanSearch = new Sanitizer(search).clean().accents().toString();
     const searchRegex = new RegExp(cleanSearch, "i");
     const paginator = this.repository.paginate(
@@ -56,7 +51,7 @@ class DirectionController {
     };
   }
 
-  async directionCreate(direction: DirectionInputCreate): Promise<Direction> {
+  async create(direction: DirectionInputCreate): Promise<Direction> {
     const query = {
       $and: [{ name: direction.name }, { owner: direction.owner }],
     };
@@ -76,7 +71,7 @@ class DirectionController {
     return result;
   }
 
-  async directionUpdate(
+  async update(
     id: string,
     direction: DirectionInputUpdate,
   ): Promise<Direction> {
