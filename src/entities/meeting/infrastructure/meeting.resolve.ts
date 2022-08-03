@@ -6,7 +6,7 @@ import NamerUtils from "@core/infrastructure/utils/namer.utils";
 import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import MeetingController from "../application/meeting.controller";
 import Meeting from "../domain/meeting.entity";
-import { MeetingPaginateArgs } from "./meeting.args";
+import { MeetingPaginationArgs } from "./meeting.args";
 import { MeetingInputCreate, MeetingInputUpdate } from "./meeting.inputs";
 import { MeetingPaginateResponse } from "./meeting.response";
 
@@ -33,7 +33,7 @@ class MeetingResolver {
     description: "Returns an array of meetings.",
     name: NAMES.paginate,
   })
-  async meetingPaginate(@Args() data: MeetingPaginateArgs) {
+  async meetingPaginate(@Args() data: MeetingPaginationArgs) {
     const results = await this.controller.paginate(data);
     return results;
   }

@@ -51,7 +51,8 @@ export class MeetingInputUpdate {
   public status?: string;
 }
 
-export default {
-  MeetingInputCreate,
-  MeetingInputUpdate,
-};
+@InputType()
+export class MeetingInputSearch {
+  @Field(() => String, { nullable: true })
+  public exchangeId?: Types.ObjectId;
+}

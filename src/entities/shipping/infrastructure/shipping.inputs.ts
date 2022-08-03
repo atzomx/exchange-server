@@ -65,8 +65,3 @@ export class ShippingInputUpdate {
   @MaxLength(60)
   public status?: string;
 }
-
-export default {
-  ShippingInputCreate,
-  ShippingInputUpdate,
-};

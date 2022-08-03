@@ -1,4 +1,3 @@
-import { PaginateArgs } from "@core/infrastructure/responses";
 import { Password } from "@core/infrastructure/utils";
 import { Direction } from "@entities/direction";
 import { Types } from "mongoose";
@@ -8,11 +7,12 @@ import {
   UserNotFoundError,
 } from "../domain/user.errors";
 import UserRepository from "../domain/user.repository";
+import { UserPaginationArgs } from "../infrastructure/user.args";
 import {
   UserInputCreate,
   UserInputUpdate,
 } from "../infrastructure/user.inputs";
-import userUtils from "./user.utils";
+import UserUtils from "./user.utils";
 
 class UserController {
   private repository: UserRepository;
@@ -22,11 +22,27 @@ class UserController {
   }
 
   findById(id: string) {
-    return this.repository.findById(id).populate("directions");
+    return this.repository.findById(id).populate(["directions"]);
   }
 
-  async paginate({ page, limit }: PaginateArgs) {
-    const paginator = this.repository.paginate({}, { limit, page });
+  async paginate({
+    page,
+    limit,
+    search,
+    status,
+    endDate,
+    startDate,
+    gender,
+  }: UserPaginationArgs) {
+    const searchQuery = UserUtils.searchingQuery({
+      search,
+      status,
+      endDate,
+      startDate,
+      gender,
+    });
+
+    const paginator = this.repository.paginate(searchQuery, { limit, page });
 
     const [results, total] = await Promise.all([
       paginator.getResults(),
@@ -55,7 +71,7 @@ class UserController {
     const existingUser = await this.repository.findOne(query);
     if (existingUser) throw new UserAlreadyExistsError(existingUser, user);
 
-    const sanitized = userUtils.sanitize({
+    const sanitized = UserUtils.sanitize({
       firstName: user.firstName,
       lastName: user.lastName,
       secondLastName: user.secondLastName,
@@ -72,7 +88,7 @@ class UserController {
     const currentUser = await this.repository.findById(id);
     if (!currentUser) throw new UserNotFoundError();
 
-    const sanitized = userUtils.sanitize({
+    const sanitized = UserUtils.sanitize({
       firstName: user.firstName ?? currentUser.firstName,
       lastName: user.lastName ?? currentUser.lastName,
       secondLastName: user.secondLastName ?? currentUser.secondLastName,

@@ -2,7 +2,6 @@ import {
   ValidateArgs,
   ValidateIdentifier,
 } from "@core/infrastructure/decorators";
-import { PaginateArgs } from "@core/infrastructure/responses";
 import NamerUtils from "@core/infrastructure/utils/namer.utils";
 import { AuthMiddleware } from "@entities/auth";
 import {
@@ -15,6 +14,7 @@ import {
 } from "type-graphql";
 import UserController from "../application/user.controller";
 import User from "../domain/user.entity";
+import { UserPaginationArgs } from "./user.args";
 import { UserInputCreate, UserInputUpdate } from "./user.inputs";
 import { UserPaginateResponse } from "./user.response";
 
@@ -41,8 +41,8 @@ class UserResolver {
     description: "Returns an array of users.",
     name: NAMES.paginate,
   })
-  async paginate(@Args() { page, limit }: PaginateArgs) {
-    const results = await this.controller.paginate({ page, limit });
+  async paginate(@Args() paginate: UserPaginationArgs) {
+    const results = await this.controller.paginate(paginate);
     return results;
   }
 
