@@ -38,7 +38,10 @@ class ShippingResolver {
     return results;
   }
 
-  @Mutation(() => Shipping, { name: NAMES.create })
+  @Mutation(() => Shipping, {
+    name: NAMES.create,
+    description: "Register a new Shipping.",
+  })
   @ValidateArgs(ShippingInputCreate, "data")
   async create(@Arg("data") shipping: ShippingInputCreate) {
     const result = await this.controller.create(shipping);

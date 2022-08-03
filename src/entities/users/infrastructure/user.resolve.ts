@@ -53,6 +53,7 @@ class UserResolver {
   @ValidateArgs(UserInputCreate, "data")
   async create(@Arg("data") user: UserInputCreate) {
     const result = await this.controller.create(user);
+    console.log("algo");
     return result;
   }
 
