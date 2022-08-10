@@ -58,7 +58,7 @@ class User {
 
   @Field(() => IUserStatus, { description: "User status." })
   @prop({ required: true, enum: IUserStatus })
-  public status!: string;
+  public status!: IUserStatus;
 
   @Field(() => [Direction], { description: "User directions." })
   @prop({
