@@ -1,8 +1,9 @@
 import { registerEnumType } from "type-graphql";
 
 export enum IDocumentType {
-    "pdf" = "pdf",
-    "png" = "pmg",
+    "application/pdf" = "application/pdf",
+    "image/jpeg" = "image/jpeg",
+    "image/png" = "image/png"
 }
 
 registerEnumType(IDocumentType, {
