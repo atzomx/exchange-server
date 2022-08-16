@@ -6,7 +6,7 @@ import {
   DirectionNotFoundError,
 } from "../domain/direction.errors";
 import DirectionRepository from "../domain/direction.repository";
-import { DirectionPaginateArgs } from "../infrastructure/direction.args";
+import { DirectionPaginationArgs } from "../infrastructure/direction.args";
 import {
   DirectionInputCreate,
   DirectionInputUpdate,
@@ -24,7 +24,7 @@ class DirectionController {
     return this.repository.findById(id);
   }
 
-  async paginate({ page, limit, owner, search = "" }: DirectionPaginateArgs) {
+  async paginate({ page, limit, owner, search }: DirectionPaginationArgs) {
     const cleanSearch = new Sanitizer(search).clean().accents().toString();
     const searchRegex = new RegExp(cleanSearch, "i");
     const paginator = this.repository.paginate(
