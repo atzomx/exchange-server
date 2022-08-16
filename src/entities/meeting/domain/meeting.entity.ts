@@ -4,26 +4,26 @@ import { prop } from "@typegoose/typegoose";
 
 @ObjectType()
 class Meeting {
-  @Field(() => ID)
+  @Field(() => ID, { description: "Meeting identifier." })
   readonly _id?: Types.ObjectId;
 
-  @Field(() => String)
+  @Field(() => String, { description: "Exchange identifier." })
   @prop({ required: true })
   readonly exchangeId!: Types.ObjectId;
 
-  @Field()
+  @Field({ description: "Meeting date." })
   @prop({ required: true })
   public date!: Date;
 
-  @Field()
+  @Field({ description: "Meeting place." })
   @prop({ required: true })
   public place!: string;
 
-  @Field()
+  @Field({ description: "Meeting binnacle." })
   @prop({ required: true })
   public binnacle!: string;
 
-  @Field()
+  @Field({ description: "Meeting status." })
   @prop({ required: true })
   public status!: string;
 }

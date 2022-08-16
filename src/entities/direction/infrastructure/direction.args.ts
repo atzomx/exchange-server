@@ -3,14 +3,10 @@ import { Types } from "mongoose";
 import { ArgsType, Field } from "type-graphql";
 
 @ArgsType()
-export class DirectionPaginateArgs extends PaginateArgs {
+export class DirectionPaginationArgs extends PaginateArgs {
   @Field(() => String, { nullable: true })
   public owner?: Types.ObjectId;
 
   @Field(() => String, { nullable: true })
   public search?: string;
 }
-
-export default {
-  DirectionPaginateArgs,
-};

@@ -1,7 +1,7 @@
 import Shipping from "../domain/shipping.entity";
 import { ShippingNotFoundError } from "../domain/shipping.errors";
 import ShippingRepository from "../domain/shipping.repository";
-import { ShippingPaginateArgs } from "../infrastructure/shipping.args";
+import { ShippingPaginationArgs } from "../infrastructure/shipping.args";
 import {
   ShippingInputCreate,
   ShippingInputUpdate,
@@ -18,7 +18,7 @@ class ShippingController {
     return this.repository.findById(id);
   }
 
-  async paginate({ page, limit, exchangeId }: ShippingPaginateArgs) {
+  async paginate({ page, limit, exchangeId }: ShippingPaginationArgs) {
     const paginator = this.repository.paginate(
       {
         exchangeId,

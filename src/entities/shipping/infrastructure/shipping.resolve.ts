@@ -6,7 +6,7 @@ import NamerUtils from "@core/infrastructure/utils/namer.utils";
 import { Arg, Args, Mutation, Query, Resolver } from "type-graphql";
 import ShippingController from "../application/shipping.controller";
 import Shipping from "../domain/shipping.entity";
-import { ShippingPaginateArgs } from "./shipping.args";
+import { ShippingPaginationArgs } from "./shipping.args";
 import { ShippingInputCreate, ShippingInputUpdate } from "./shipping.inputs";
 import { ShippingPaginateResponse } from "./shipping.response";
 
@@ -33,12 +33,15 @@ class ShippingResolver {
     description: "Returns an array of Shipping",
     name: NAMES.paginate,
   })
-  async paginate(@Args() data: ShippingPaginateArgs) {
+  async paginate(@Args() data: ShippingPaginationArgs) {
     const results = await this.controller.paginate(data);
     return results;
   }
 
-  @Mutation(() => Shipping, { name: NAMES.create })
+  @Mutation(() => Shipping, {
+    name: NAMES.create,
+    description: "Register a new Shipping.",
+  })
   @ValidateArgs(ShippingInputCreate, "data")
   async create(@Arg("data") shipping: ShippingInputCreate) {
     const result = await this.controller.create(shipping);
