@@ -1,18 +1,15 @@
 import { IsOptional, MaxLength, MinLength } from "class-validator";
 import { Field, InputType } from "type-graphql";
 import { Types } from "mongoose";
+import { IDocumentType } from "../domain/document.enum";
 
 @InputType()
 export class DocumentInputCreate {
   @Field(() => String)
-  @MinLength(1)
-  @MaxLength(30)
   public owner!: Types.ObjectId;
 
-  @Field({ description: "Document mime type." })
-  @MinLength(1)
-  @MaxLength(30)
-  public type!: string;
+  @Field(() => IDocumentType, { description: "Document type." })
+  public type!: IDocumentType;
 
   @Field({ description: "Document url." })
   @MinLength(1)
@@ -27,11 +24,9 @@ export class DocumentInputCreate {
 
 @InputType()
 export class DocumentInputUpdate {
-  @Field({ nullable: true, description: "Document mime type." })
+  @Field(() => IDocumentType, { description: "Document type." })
   @IsOptional()
-  @MinLength(1)
-  @MaxLength(30)
-  public type?: string;
+  public type?: IDocumentType;
 
   @Field({ nullable: true, description: "Document url." })
   @IsOptional()

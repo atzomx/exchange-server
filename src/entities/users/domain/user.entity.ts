@@ -1,4 +1,5 @@
 import { Direction } from "@entities/direction";
+import { Document } from "@entities/document";
 import { prop } from "@typegoose/typegoose";
 import { Types } from "mongoose";
 import { Field, ID, ObjectType } from "type-graphql";
@@ -63,6 +64,10 @@ class User {
   @Field(() => [Direction], { description: "User directions." })
   @prop({ type: () => [Types.ObjectId], default: [], ref: Direction })
   public directions?: Types.ObjectId[];
+
+  @Field(() => [Document], { description: "User documents." })
+  @prop({ type: () => [Types.ObjectId], default: [], ref: Document })
+  public documents?: Types.ObjectId[];
 }
 
 export default User;

@@ -1,6 +1,7 @@
 import { Index, prop } from "@typegoose/typegoose";
 import { Types } from "mongoose";
 import { Field, ID, ObjectType } from "type-graphql";
+import { IDocumentType } from "./document.enum";
 
 @Index({ owner: 1, name: 1 }, { unique: true })
 @ObjectType()
@@ -12,9 +13,9 @@ class Document {
   @prop({ required: true })
   readonly owner!: Types.ObjectId;
 
-  @Field({ description: "Document mime type." })
-  @prop({ required: true })
-  public type!: string;
+  @Field(() => IDocumentType, { description: "Document type." })
+  @prop({ required: true, enum: IDocumentType})
+  public type!: IDocumentType;
 
   @Field({ description: "Document url." })
   @prop({ required: true })

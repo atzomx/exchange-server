@@ -1,6 +1,7 @@
 import { PaginateArgs } from "@core/infrastructure/responses";
 import { Password } from "@core/infrastructure/utils";
 import { Direction } from "@entities/direction";
+import { Document } from "@entities/document";
 import { Types } from "mongoose";
 import User from "../domain/user.entity";
 import {
@@ -93,6 +94,19 @@ class UserController {
     const currentUser = await this.repository.findByIdAndUpdate(userId, {
       $push: { directions: direction },
     });
+    if (!currentUser) throw new UserNotFoundError();
+    return currentUser;
+  }
+
+  async linkDocument(
+    userId: Types.ObjectId,
+    document: Document,
+  ): Promise<User> {
+    
+    const currentUser = await this.repository.findByIdAndUpdate(userId, {
+      $push: { documents: document },
+    });
+    
     if (!currentUser) throw new UserNotFoundError();
     return currentUser;
   }
