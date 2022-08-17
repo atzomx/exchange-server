@@ -4,12 +4,10 @@ type SanitizeDocument = {
   name: string;
 };
 
-const sanitize = ({
-  name,
-}: SanitizeDocument) => {
+const sanitize = ({ name }: SanitizeDocument) => {
   const normalizedName = Sanitize.accents(Sanitize.clean(name));
 
-  return{
+  return {
     normalizedName,
   };
 };

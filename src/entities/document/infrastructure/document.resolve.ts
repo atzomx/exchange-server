@@ -1,7 +1,10 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import Document from "../domain/document.entity";
 import DocumentController from "../application/document.controller";
-import { ValidateArgs, ValidateIdentifier } from "@core/infrastructure/decorators";
+import {
+  ValidateArgs,
+  ValidateIdentifier,
+} from "@core/infrastructure/decorators";
 import { DocumentInputCreate, DocumentInputUpdate } from "./document.inputs";
 import NamerUtils from "@core/infrastructure/utils/namer.utils";
 
@@ -15,11 +18,11 @@ class DocumentResolver {
     this.controller = new DocumentController();
   }
 
-  @Query(() => Document, { 
+  @Query(() => Document, {
     description: "Return one Document.",
     name: NAMES.find,
   })
-  async findById(@Arg("id") id: string): Promise<Document>{
+  async findById(@Arg("id") id: string): Promise<Document> {
     const document = await this.controller.findById(id);
     return document;
   }
@@ -29,7 +32,7 @@ class DocumentResolver {
     name: NAMES.create,
   })
   @ValidateArgs(DocumentInputCreate, "data")
-  async create(@Arg("data") document: DocumentInputCreate){
+  async create(@Arg("data") document: DocumentInputCreate) {
     const result = await this.controller.create(document);
     return result;
   }
@@ -41,10 +44,10 @@ class DocumentResolver {
   @ValidateIdentifier(DocumentInputUpdate, "id")
   @ValidateArgs(DocumentInputUpdate, "data")
   async update(
-    @Arg("id") id: string, 
+    @Arg("id") id: string,
     @Arg("data") document: DocumentInputUpdate,
-  ){
-    const result = await this.controller.update(id.toString(),document);
+  ) {
+    const result = await this.controller.update(id.toString(), document);
     return result;
   }
 }

@@ -2,9 +2,9 @@ import { ICustomError } from "@core/domain/interfaces";
 import { UserInputError } from "apollo-server-core";
 
 export class DocumentNotFoundError extends UserInputError {
-  constructor(){
+  constructor() {
     const errors: Array<ICustomError> = [
-      { constrains: "Document not found", property: "id"},
+      { constrains: "Document not found", property: "id" },
     ];
     super("Document not found", { errors });
   }

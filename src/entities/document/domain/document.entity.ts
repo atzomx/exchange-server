@@ -14,7 +14,7 @@ class Document {
   readonly owner!: Types.ObjectId;
 
   @Field(() => IDocumentType, { description: "Document type." })
-  @prop({ required: true, enum: IDocumentType})
+  @prop({ required: true, enum: IDocumentType })
   public type!: IDocumentType;
 
   @Field({ description: "Document url." })
