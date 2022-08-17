@@ -7,9 +7,8 @@ export const getSkip = ({
   page: number;
   limit: number;
 }) => {
-  const numberPerPage = Number(limit);
-  const pageNumber = Number(page);
-  return pageNumber > 0 ? (pageNumber - 1) * numberPerPage : 0;
+  if (limit < 0) return 0;
+  return page > 0 ? (page - 1) * limit : 0;
 };
 
 export default {

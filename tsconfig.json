@@ -44,8 +44,6 @@
       "@entities": ["./src/entities"],
       "@server/*": ["./src/server/*"],
       "@server": ["./src/server"],
-      "@users/*": ["./src/entities/users/*"],
-      "@users": ["./src/entities/users"],
       "@database/*": ["./src/database/*"],
       "@database": ["./src/database"]
     }

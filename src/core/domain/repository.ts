@@ -64,6 +64,14 @@ class Repository<T> {
     };
   }
 
+  deleteMany() {
+    return this.instance.deleteMany();
+  }
+
+  insertMany(documents: T[]): Promise<T[]> {
+    return this.instance.insertMany(documents);
+  }
+
   custom() {
     return this.instance;
   }
