@@ -3,7 +3,6 @@
     "target": "es2018",
     "module": "commonjs",
     "pretty": true,
-    "sourceMap": true,
     "outDir": "dist",
     "importHelpers": true,
     "strict": true,
