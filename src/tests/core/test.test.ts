@@ -2,7 +2,7 @@ import TestUtils, {
   getRandomNumber,
   getRandomChar,
   getByFormat,
-} from "../test.utils";
+} from "@core/infrastructure/utils/test.utils";
 
 const MAX_TEST = 50;
 

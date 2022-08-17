@@ -5,8 +5,9 @@ module.exports = {
   testEnvironment: "node",
   moduleNameMapper: {
     "^@core/(.*)$": "<rootDir>/src/core/$1",
+    "^@core$": "<rootDir>/src/core",
     "^@entities/(.*)$": "<rootDir>/src/entities/$1",
-    "^@server/(.*)$": "<rootDir>/src/server/$1",
-    "^@database/(.*)$": "<rootDir>/src/database/$1",
+    "^@entities$": "<rootDir>/src/entities",
   },
+  testTimeout: 20000,
 };

@@ -26,7 +26,7 @@ class User {
   public normalizedFullName?: string;
 
   @Field({ description: "User profile image." })
-  @prop({ required: true })
+  @prop({ required: false })
   public image?: string;
 
   @Field({ description: "Identifying number." })

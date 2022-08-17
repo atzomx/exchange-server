@@ -1,4 +1,4 @@
-import UserFaker from "./utils/user.faker";
+import UserFaker from "./user.faker";
 
 const keysMandatories = [
   "birthday",
@@ -20,5 +20,6 @@ describe("User faker", () => {
     keysMandatories.forEach((key) => {
       expect(user).toHaveProperty(key);
     });
+    expect(user.birthday).toBeInstanceOf(Date);
   });
 });

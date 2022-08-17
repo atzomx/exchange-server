@@ -1,4 +1,4 @@
-import { getSkip } from "../paginate.utils";
+import { getSkip } from "@core/infrastructure/utils/paginate.utils";
 
 describe("Paginate utils", () => {
   it("Should return a valid skip", () => {

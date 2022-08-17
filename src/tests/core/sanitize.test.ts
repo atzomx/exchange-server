@@ -1,4 +1,4 @@
-import { Sanitizer } from "../sanitize.utils";
+import { Sanitizer } from "@core/infrastructure/utils/sanitize.utils";
 
 describe("Sanitize utils", () => {
   it("Should clean a test of accents", () => {

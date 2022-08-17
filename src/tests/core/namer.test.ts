@@ -1,4 +1,4 @@
-import Namer from "../namer.utils";
+import Namer from "@core/infrastructure/utils/namer.utils";
 
 describe("Namer utils", () => {
   it("Should return name of methods based in a initial name", () => {

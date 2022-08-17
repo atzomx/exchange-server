@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 export const getRandomNumber = (max: number, min = 0) => {
   const rand = Math.floor(Math.random() * (max - min)) + min;
   return rand;
@@ -30,4 +31,8 @@ export const getCurp = () => {
   return getByFormat("SSSS######SSSSSS##");
 };
 
-export default { getEnumRandom, getByFormat, getCurp };
+export const getOneFromArray = <T extends {}>(array: Array<T>) => {
+  return array[getRandomNumber(array.length)];
+};
+
+export default { getEnumRandom, getByFormat, getCurp, getOneFromArray };

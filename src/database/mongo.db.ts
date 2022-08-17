@@ -9,7 +9,7 @@ async function start() {
   try {
     let { MONGO_URL } = process.env;
 
-    if (process.env.ENV === "test") {
+    if (process.env.NODE_ENV === "test") {
       const mongod = await MongoMemoryServer.create();
       MONGO_URL = mongod.getUri();
     }
