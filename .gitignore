@@ -4,3 +4,5 @@ mongo
 src/server/schema.gql
 .env
 .vscode
+
+src/tests/config/schema.gql
