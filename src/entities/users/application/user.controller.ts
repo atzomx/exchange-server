@@ -118,11 +118,10 @@ class UserController {
     userId: Types.ObjectId,
     document: Document,
   ): Promise<User> {
-    
     const currentUser = await this.repository.findByIdAndUpdate(userId, {
       $push: { documents: document },
     });
-    
+
     if (!currentUser) throw new UserNotFoundError();
     return currentUser;
   }

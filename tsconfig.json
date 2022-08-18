@@ -3,7 +3,6 @@
     "target": "es2018",
     "module": "commonjs",
     "pretty": true,
-    "sourceMap": true,
     "outDir": "dist",
     "importHelpers": true,
     "strict": true,
@@ -21,21 +20,7 @@
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": [
-      "es5",
-      "es6",
-      "dom",
-      "es2015.core",
-      "es2015.collection",
-      "es2015.generator",
-      "es2015.iterable",
-      "es2015.promise",
-      "es2015.proxy",
-      "es2015.reflect",
-      "es2015.symbol",
-      "es2015.symbol.wellknown",
-      "esnext.asynciterable"
-    ],
+    "lib": ["es5", "es6"],
     "baseUrl": "." /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
       "@core/*": ["./src/core/*"],
@@ -47,5 +32,6 @@
       "@database/*": ["./src/database/*"],
       "@database": ["./src/database"]
     }
-  }
+  },
+  "exclude": ["node_modules", "./src/tests"]
 }
