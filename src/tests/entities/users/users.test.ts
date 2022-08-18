@@ -12,8 +12,13 @@ let entities: {
 
 describe("User Test", () => {
   beforeAll(async () => {
-    testServer = await server.start();
     entities = await migrations.up();
+    testServer = await server.start();
+  });
+
+  afterAll(async () => {
+    await migrations.down();
+    await testServer.stop();
   });
 
   it("Should return a user", async () => {
@@ -36,6 +41,5 @@ describe("User Test", () => {
     expect(data).toHaveProperty("status");
     expect(data).toHaveProperty("gender");
     expect(data).toHaveProperty("curp");
-    expect(data.birthday).toBeInstanceOf(Date);
   });
 });

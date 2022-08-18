@@ -9,6 +9,7 @@ const up = async () => {
 
 const down = async () => {
   await UserMigrate.down();
+  await mongodb.finish();
 };
 
 export default { up, down };
