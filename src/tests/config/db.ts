@@ -7,4 +7,8 @@ async function start() {
   await mongoose.connect(MONGO_URL);
 }
 
-export default { start };
+async function finish() {
+  await mongoose.disconnect();
+}
+
+export default { start, finish };

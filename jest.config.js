@@ -9,5 +9,4 @@ module.exports = {
     "^@entities/(.*)$": "<rootDir>/src/entities/$1",
     "^@entities$": "<rootDir>/src/entities",
   },
-  testTimeout: 20000,
 };

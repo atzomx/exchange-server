@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import UserFaker from "./user.faker";
 
 const keysMandatories = [
