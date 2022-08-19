@@ -6,3 +6,4 @@ src/server/schema.gql
 .vscode
 
 src/tests/config/schema.gql
+coverage

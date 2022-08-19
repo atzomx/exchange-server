@@ -22,7 +22,7 @@ describe("User Test", () => {
   });
 
   it("Should return a user", async () => {
-    const user = TestUtils.getOneFromArray(entities.users).toString();
+    const user = TestUtils.getOneFromArray(entities.users);
     const result = await testServer.executeOperation({
       query: userQuerys.user,
       variables: { user },

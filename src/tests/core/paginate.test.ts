@@ -20,4 +20,9 @@ describe("Paginate utils", () => {
     const skip = getSkip({ page: 5, limit: -10 });
     expect(skip).toBe(0);
   });
+
+  it("Should return a 0 skip with negative limit", () => {
+    const skip = getSkip({});
+    expect(skip).toBe(0);
+  });
 });
