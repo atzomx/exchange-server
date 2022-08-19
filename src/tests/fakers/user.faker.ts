@@ -8,8 +8,8 @@ class UserFaker {
   static get() {
     const userBasic = UserFaker.basic();
     const status = TestUtils.getEnumRandom(IUserStatus);
-    const birthday =  faker.date.birthdate();
-    const user: User = {...userBasic, status, birthday};
+    const birthday = faker.date.birthdate();
+    const user: User = { ...userBasic, status, birthday };
 
     const sanitized = UserUtils.sanitize({
       curp: user.curp,
@@ -21,12 +21,11 @@ class UserFaker {
     return { ...user, ...sanitized };
   }
 
-  static basic () {
+  static basic() {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const secondLastName = faker.name.lastName();
     const baseUserName = `${firstName}${lastName}${secondLastName}`;
-
 
     const user = {
       firstName,
@@ -40,8 +39,8 @@ class UserFaker {
       password: faker.internet.password(),
       phoneNumber: faker.phone.number("+52##########"),
       userName: faker.internet.userName(baseUserName).substring(0, 16),
-    }; ;
-    return user ;
+    };
+    return user;
   }
 }
 

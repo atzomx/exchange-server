@@ -60,7 +60,7 @@ describe("User Test", () => {
     expect(info).toHaveProperty("total");
     const results = data["results"] as User[];
     expect(results instanceof Array).toBeTruthy();
-    results.forEach(user => {
+    results.forEach((user) => {
       keysMandatories.forEach((key) => {
         expect(user).toHaveProperty(key);
       });
@@ -97,6 +97,5 @@ describe("User Test", () => {
     expect(result.errors instanceof Array).toBeTruthy();
     const [error] = result.errors;
     expect(error.message).toBe("User already exists");
-    
   });
 });

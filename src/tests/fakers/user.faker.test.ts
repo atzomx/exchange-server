@@ -10,7 +10,6 @@ const keysMandatories = [
   "userName",
   "phoneNumber",
   "password",
-  "status",
   "gender",
   "curp",
 ];
@@ -22,6 +21,7 @@ describe("User faker", () => {
       expect(user).toHaveProperty(key);
     });
     expect(user).toHaveProperty("normalizedFullName");
+    expect(user).toHaveProperty("status");
     expect(user.birthday).toBeInstanceOf(Date);
   });
 
@@ -31,6 +31,5 @@ describe("User faker", () => {
       expect(user).toHaveProperty(key);
     });
     expect(user).not.toHaveProperty("normalizedFullName");
-    expect(user.birthday).toBeInstanceOf(Date);
   });
 });
