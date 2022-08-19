@@ -97,5 +97,6 @@ describe("User Test", () => {
     expect(result.errors instanceof Array).toBeTruthy();
     const [error] = result.errors;
     expect(error.message).toBe("User already exists");
+    
   });
 });
