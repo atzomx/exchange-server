@@ -54,12 +54,15 @@ class Repository<T> {
     },
   ) {
     const skip = Paginate.getSkip({ page, limit });
-    const documents = this.instance.find(query).skip(skip).limit(limit);
-    const results = documents.clone().lean<T[]>();
-    const total = documents.clone().countDocuments();
+    const documents = this.instance
+      .find(query)
+      .skip(skip)
+      .limit(limit)
+      .lean<T[]>();
+    const total = this.instance.find().countDocuments();
 
     return {
-      getResults: () => results,
+      getResults: () => documents,
       getTotal: () => total,
     };
   }
