@@ -1,3 +1,4 @@
+import { IPagination } from "@core/domain/interfaces";
 import { Password } from "@core/infrastructure/utils";
 import { Direction } from "@entities/direction";
 import { Document } from "@entities/document";
@@ -34,7 +35,7 @@ class UserController {
     endDate,
     startDate,
     gender,
-  }: UserPaginationArgs) {
+  }: UserPaginationArgs): Promise<IPagination<User>> {
     const searchQuery = UserUtils.searchingQuery({
       search,
       status,

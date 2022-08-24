@@ -56,11 +56,19 @@ const paginate = gql`
 `;
 
 const userCreate = gql`
-    mutation UserCreate($data: UserInputCreate!) {
+  mutation UserCreate($data: UserInputCreate!) {
     userCreate(data: $data) {
       ${user}
     }
   }
 `;
 
-export default { userById, paginate, userCreate };
+const userUpdate = gql`
+  mutation Mutation($data: UserInputUpdate!, $userId: String!) {
+    userUpdate(data: $data, id: $userId) {
+      ${user}
+    }
+  }
+`;
+
+export default { userById, paginate, userCreate, userUpdate };

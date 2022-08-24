@@ -10,3 +10,12 @@ export interface IContext {
   res: Response;
   payload?: { id: string };
 }
+
+export interface IPagination<T> {
+  results: T[];
+  info: {
+    total: number;
+    page: number;
+    pages: number;
+  };
+}

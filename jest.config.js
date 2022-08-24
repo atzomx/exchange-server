@@ -4,6 +4,8 @@ module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
   moduleNameMapper: {
+    "^@server/(.*)$": "<rootDir>/src/server/$1",
+    "^@server$": "<rootDir>/src/server",
     "^@core/(.*)$": "<rootDir>/src/core/$1",
     "^@core$": "<rootDir>/src/core",
     "^@entities/(.*)$": "<rootDir>/src/entities/$1",
