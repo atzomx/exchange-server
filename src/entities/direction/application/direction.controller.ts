@@ -75,12 +75,12 @@ class DirectionController {
     id: string,
     direction: DirectionInputUpdate,
   ): Promise<Direction> {
-    const currentDirection = await this.repository.findById(id);
+    const currentDirection = await this.repository.findById(id).lean();
     if (!currentDirection) throw new DirectionNotFoundError();
 
     const sanitized = directionUtils.sanitize({
-      ...direction,
       ...currentDirection,
+      ...direction,
     });
 
     const dataToUpdate = { ...direction, ...sanitized };
