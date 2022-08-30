@@ -1,22 +1,23 @@
-import Entities from "@entities";
-import { ApolloServer } from "apollo-server-express";
-import * as path from "path";
-import { buildSchema } from "type-graphql";
+import { ApolloServer, ExpressContext } from "apollo-server-express";
+import { create } from "@server/apollo.server";
+import http from "http";
+
+let server: {
+  server: ApolloServer<ExpressContext>;
+  app: http.Server;
+};
 
 async function start() {
-  const schema = await buildSchema({
-    resolvers: Entities.resolvers,
-    emitSchemaFile: path.resolve(__dirname, "schema.gql"),
-    validate: true,
-  });
-
-  const server = new ApolloServer({
-    debug: false,
-    schema,
-    context: ({ req, res }) => ({ req, res }),
-  });
-
+  server = await create(6000, __dirname);
   return server;
 }
 
-export default { start };
+async function stop() {
+  const { app: appServer, server: gqlServer } = server;
+  await new Promise((resolve, reject) => {
+    appServer.close((err) => (!err ? resolve(null) : reject()));
+  });
+  await gqlServer.stop();
+}
+
+export default { start, stop };

@@ -1,12 +1,11 @@
 const DEFAULT_LIMIT = 15;
 
-export const getSkip = ({
-  page = 0,
-  limit = DEFAULT_LIMIT,
-}: {
-  page: number;
-  limit: number;
-}) => {
+type LimitType = {
+  page?: number;
+  limit?: number;
+};
+
+export const getSkip = ({ page = 0, limit = DEFAULT_LIMIT }: LimitType) => {
   if (limit < 0) return 0;
   return page > 0 ? (page - 1) * limit : 0;
 };

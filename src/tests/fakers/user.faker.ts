@@ -6,20 +6,10 @@ import UserUtils from "@entities/users/application/user.utils";
 
 class UserFaker {
   static get() {
-    const user: User = {
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-      secondLastName: faker.name.lastName(),
-      birthday: faker.date.birthdate(),
-      curp: TestUtils.getCurp(),
-      email: faker.internet.email(),
-      gender: TestUtils.getEnumRandom(IUserGender),
-      image: faker.internet.url(),
-      password: faker.internet.password(),
-      phoneNumber: faker.phone.number("+52##########"),
-      status: TestUtils.getEnumRandom(IUserStatus),
-      userName: faker.internet.userName(),
-    };
+    const userBasic = UserFaker.basic();
+    const status = TestUtils.getEnumRandom(IUserStatus);
+    const birthday = faker.date.birthdate();
+    const user: User = { ...userBasic, status, birthday };
 
     const sanitized = UserUtils.sanitize({
       curp: user.curp,
@@ -29,6 +19,28 @@ class UserFaker {
     });
 
     return { ...user, ...sanitized };
+  }
+
+  static basic() {
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    const secondLastName = faker.name.lastName();
+    const baseUserName = `${firstName}${lastName}${secondLastName}`;
+
+    const user = {
+      firstName,
+      lastName,
+      secondLastName,
+      birthday: faker.date.birthdate().toISOString(),
+      curp: TestUtils.getCurp(),
+      email: faker.internet.email(),
+      gender: TestUtils.getEnumRandom(IUserGender),
+      image: faker.internet.url(),
+      password: faker.internet.password(),
+      phoneNumber: faker.phone.number("+52##########"),
+      userName: faker.internet.userName(baseUserName).substring(0, 16),
+    };
+    return user;
   }
 }
 

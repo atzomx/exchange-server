@@ -12,19 +12,13 @@ docker-compose up -d
 mongodb://localhost:27017/exchangedb
 ```
 
-## Load mock data
-```
-http://localhost:3000/api/seed
-```
-
 ## Getting Started
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
+yarn install
+yarn dev:start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

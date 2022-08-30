@@ -1,8 +1,7 @@
 import "reflect-metadata";
 import TestUtils from "@core/infrastructure/utils/test.utils";
 import { ApolloServer, ExpressContext } from "apollo-server-express";
-import migrations from "../../migrations";
-import server from "../../config/server";
+import server from "../../config";
 import directionQuerys from "./direction.querys";
 import DirectionFaker from "../../fakers/direction.faker";
 import { Types } from "mongoose";
@@ -28,13 +27,13 @@ let entities: {
 
 describe("direction Test", () => {
   beforeAll(async () => {
-    entities = await migrations.up();
-    testServer = await server.start();
+    const initialServer = await server.start();
+    entities = initialServer.entities;
+    testServer = initialServer.gqlServer;
   });
 
   afterAll(async () => {
-    await migrations.down();
-    await testServer.stop();
+    await server.stop();
   });
 
   it("Should return a direction", async () => {

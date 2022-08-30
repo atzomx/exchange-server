@@ -1,22 +1,19 @@
-import "reflect-metadata";
-import { Log } from "@core/infrastructure/utils";
-import Entities from "@entities";
+import * as path from "path";
+import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
-import { ApolloServer, ExpressContext } from "apollo-server-express";
+import Entities from "@entities";
+import { Log } from "@core/infrastructure/utils";
+import { buildSchema } from "type-graphql";
 import express from "express";
 import http from "http";
-import * as path from "path";
-import { buildSchema } from "type-graphql";
 
-export async function create(
-  port: number,
-): Promise<ApolloServer<ExpressContext>> {
+export async function create(port: number, dir = __dirname) {
   const app = express();
   const httpServer = http.createServer(app);
 
   const schema = await buildSchema({
     resolvers: Entities.resolvers,
-    emitSchemaFile: path.resolve(__dirname, "schema.gql"),
+    emitSchemaFile: path.resolve(dir, "schema.gql"),
     validate: true,
   });
 
@@ -30,12 +27,13 @@ export async function create(
 
   server.applyMiddleware({ app });
 
-  return new Promise((resolve, reject) => {
+  await new Promise((resolve, reject) => {
     httpServer
       .listen(port)
-      .once("listening", () => resolve(server))
+      .once("listening", () => resolve(httpServer))
       .once("error", reject);
   });
+  return { server, app: httpServer };
 }
 
 async function start() {

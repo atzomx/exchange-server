@@ -10,7 +10,6 @@ const keysMandatories = [
   "userName",
   "phoneNumber",
   "password",
-  "status",
   "gender",
   "curp",
 ];
@@ -21,6 +20,16 @@ describe("User faker", () => {
     keysMandatories.forEach((key) => {
       expect(user).toHaveProperty(key);
     });
+    expect(user).toHaveProperty("normalizedFullName");
+    expect(user).toHaveProperty("status");
     expect(user.birthday).toBeInstanceOf(Date);
+  });
+
+  it("Should return a basic user random", () => {
+    const user = UserFaker.basic();
+    keysMandatories.forEach((key) => {
+      expect(user).toHaveProperty(key);
+    });
+    expect(user).not.toHaveProperty("normalizedFullName");
   });
 });
