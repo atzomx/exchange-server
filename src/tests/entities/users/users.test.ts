@@ -1,15 +1,12 @@
-import "reflect-metadata";
-
 import { User, UserModel } from "@entities/users";
-
 import { IPagination } from "@core/domain/interfaces";
 import TestUtils from "@core/infrastructure/utils/test.utils";
-import UserFaker from "../../fakers/user.faker";
 import authUtils from "@entities/auth/application/auth.utils";
 import http from "http";
-import migrations from "../../migrations";
+import { Types } from "mongoose";
 import request from "supertest-graphql";
-import server from "../../config/server";
+import server from "../../config";
+import UserFaker from "../../fakers/user.faker";
 import userQuerys from "./user.querys";
 
 let appServer: http.Server;
@@ -22,13 +19,12 @@ const keysMandatories = Object.keys(User);
 
 describe("User Test", () => {
   beforeAll(async () => {
-    entities = await migrations.up();
-    const { app } = await server.start();
-    appServer = app;
+    const initServer = await server.start();
+    entities = initServer.entities;
+    appServer = initServer.app;
   });
 
   afterAll(async () => {
-    await migrations.down();
     await server.stop();
   });
 
@@ -47,9 +43,20 @@ describe("User Test", () => {
   });
 
   it("Should paginate users", async () => {
+    const currentDate = new Date();
+    const endDate = new Date();
+    const startDate = new Date();
+    endDate.setDate(currentDate.getDate() + 10);
+    startDate.setDate(currentDate.getDate() - 10);
+
     const variables = {
       page: 1,
       limit: 5,
+      endDate,
+      startDate,
+      search: "a",
+      status: "pending",
+      gender: "male",
     };
 
     const result = await request<{ userPaginate: IPagination<User> }>(appServer)
@@ -133,5 +140,26 @@ describe("User Test", () => {
     keysMandatories.forEach((key) => {
       expect(data.userUpdate).toHaveProperty(key);
     });
+  });
+
+  it("Shouldn't update an user", async () => {
+    const userId = new Types.ObjectId();
+    const userToken = authUtils.getToken(userId.toString());
+    const authorization = `Token ${userToken}`;
+    const dataToSent = {
+      firstName: "updatedfirstname",
+      lastName: "updatedlastname",
+      secondLastName: "updatedsecondlastname",
+      curp: TestUtils.getCurp(),
+    };
+    const { data, errors } = await request<{ userUpdate: User }>(appServer)
+      .query(userQuerys.userUpdate)
+      .variables({ data: dataToSent, userId })
+      .set("authorization", authorization);
+
+    expect(data).toBeNull();
+    expect(errors).not.toBeNull();
+    const [error] = errors;
+    expect(error.message).toBe("User not found");
   });
 });

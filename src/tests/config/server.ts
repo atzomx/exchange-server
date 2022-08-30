@@ -1,9 +1,6 @@
 import { ApolloServer, ExpressContext } from "apollo-server-express";
-import { config } from "dotenv";
 import { create } from "@server/apollo.server";
 import http from "http";
-
-config();
 
 let server: {
   server: ApolloServer<ExpressContext>;

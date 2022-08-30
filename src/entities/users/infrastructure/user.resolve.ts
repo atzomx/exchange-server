@@ -3,7 +3,7 @@ import {
   ValidateIdentifier,
 } from "@core/infrastructure/decorators";
 import NamerUtils from "@core/infrastructure/utils/namer.utils";
-import { AuthMiddleware } from "@entities/auth";
+import AuthMiddleware from "@entities/auth/infrastructure/auth.middleware";
 import {
   Arg,
   Args,
